@@ -1,4 +1,13 @@
 Lcal::Application.routes.draw do
+  resources :roman_calendars
+
+
+  resources :calendars
+  resources :ranks
+  resources :seasons
+  resources :ordos
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
