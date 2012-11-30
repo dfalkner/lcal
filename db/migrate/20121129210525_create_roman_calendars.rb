@@ -4,8 +4,8 @@ class CreateRomanCalendars < ActiveRecord::Migration
       t.integer :ordo_id, :null => false
       t.string :feast_day
       t.integer :rank_id, :null => false
-      t.string :color
-      t.string :description
+      t.integer :color_id
+      t.string :title
 
       t.timestamps
     end
