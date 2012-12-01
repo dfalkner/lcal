@@ -1,7 +1,8 @@
 Lcal::Application.routes.draw do
-  resources :roman_calendars
+  resources :commons_feasts
 
 
+  resources :feasts
   resources :calendars
   resources :ranks
   resources :seasons

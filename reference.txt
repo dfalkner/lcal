@@ -1,0 +1,12 @@
+calendars 					cal_date 	season_id week day rank_id color_id title 
+feast roman_calendars 			ordo_id 	feast_day rank_id color_id title
+  commons_roman_calendars 	common_id 	roman_calendar_id
+commons 					title 		code 
+colors 						title 		code
+ordos 						title 		code
+ranks 						title 		code
+seasons 					title 		code
+
+Ab B Bb BVM D Dd De Ded HM HW M Mm P Pp Pas Po Rel Tea Teacher Underpriv V Vv 
+
+

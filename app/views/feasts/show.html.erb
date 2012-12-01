@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Ordo:</b>
+  <%= @feast.ordo_id %>
+</p>
+
+<p>
+  <b>Month:</b>
+  <%= @feast.month %>
+</p>
+
+<p>
+  <b>Day:</b>
+  <%= @feast.day %>
+</p>
+
+<p>
+  <b>Rank:</b>
+  <%= @feast.rank_id %>
+</p>
+
+<p>
+  <b>Color:</b>
+  <%= @feast.color_id %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @feast.title %>
+</p>
+
+
+<%= link_to 'Edit', edit_feast_path(@feast) %> |
+<%= link_to 'Back', feasts_path %>

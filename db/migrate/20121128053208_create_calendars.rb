@@ -11,7 +11,6 @@ class CreateCalendars < ActiveRecord::Migration
 
       t.timestamps
     end
-    add_index :calendars, :cal_date, unique: true
     
   end
 end

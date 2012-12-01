@@ -1,5 +1,5 @@
 class Calendar < ActiveRecord::Base
-  attr_accessible :cal_date, :color_id, :day, :description, :rank_id, :season_id, :week
+  attr_accessible :cal_date, :color_id, :day, :title, :rank_id, :season_id, :week
   
   belongs_to :season
   belongs_to :rank
