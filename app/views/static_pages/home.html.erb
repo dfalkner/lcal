@@ -1,0 +1,30 @@
+<% if signed_in? %>
+  <div class="row">
+    <aside class="span4">
+      <section>
+        <%= link_to "Feast Days", feasts_path %>
+      </section>
+      <section>
+         <%= link_to "Ordos", ordos_path %>
+      </section>
+      <section>
+        <%= link_to "Principal Celebrations of the Liturgical Year", principals_path %>
+      </section>
+    </aside>
+    <div class="span8">
+      <h2><%=  %></h2>
+      
+    </div>
+  </div>
+<% else %>
+  <div class="center hero-unit">
+    <h1>Liturgical Calendar</h1>
+
+
+
+    <%= link_to "Sign up now!", signup_path, 
+                                class: "btn btn-large btn-primary" %>
+  </div>
+
+ 
+<% end %>

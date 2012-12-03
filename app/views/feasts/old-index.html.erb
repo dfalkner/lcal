@@ -1,0 +1,45 @@
+<%- model_class = Feast -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:ordo_id) %></th>
+      <th><%= model_class.human_attribute_name(:date) %></th>
+      <th><%= model_class.human_attribute_name(:rank_id) %></th>
+      <th><%= model_class.human_attribute_name(:color_id) %></th>
+      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @feasts.each do |f| %>
+      
+      <tr>
+        <td><%= link_to f.id, feast_path(f) %></td>
+        <td><%= f.ordo.code %></td>
+        <td><%= f.month %>/<%= f.day %></td>
+        <td><%= f.rank_id %></td>
+        <td><%= f.color_id %></td>
+        <td><%= f.title %></td>
+        <td><%=l f.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_feast_path(f), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      feast_path(f),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_feast_path,
+            :class => 'btn btn-primary' %>

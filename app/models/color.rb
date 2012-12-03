@@ -3,4 +3,8 @@ class Color < ActiveRecord::Base
   validates :code, :presence => true
   has_many :calendars
   has_many :feasts
+  
+  def to_s
+    title
+  end
 end

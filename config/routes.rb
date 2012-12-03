@@ -1,12 +1,37 @@
 Lcal::Application.routes.draw do
-  resources :commons_feasts
+  resources :ranks
+
+
+  resources :calendars
+
+
+  resources :seasons
+
+
+  resources :ordos
+
+
+  resources :colors
+
+
+  resources :commons
 
 
   resources :feasts
-  resources :calendars
-  resources :ranks
-  resources :seasons
-  resources :ordos
+
+  resources :users
+  resources :sessions, only: [:new, :create, :destroy]
+  
+  match '/signup',  to: 'users#new'
+  match '/signin',  to: 'sessions#new'
+#  match '/signout', to: 'sessions#destroy', via: :delete
+   match '/signout', to: 'sessions#destroy'
+
+  root to: 'static_pages#home'
+   match '/help',    to: 'static_pages#help'
+   match '/about',   to: 'static_pages#about'
+   match '/contact', to: 'static_pages#contact'
+   match '/signup',  to: 'users#new'
 
 
   # The priority is based upon order of creation:
@@ -58,7 +83,7 @@ Lcal::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  # root :to => 'static_pages/home#index'
 
   # See how all your routes lay out with "rake routes"
 

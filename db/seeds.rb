@@ -6,14 +6,14 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-[ {code: 'sol', title:  'Solemnity'}, 
-  {code: 'sun', title:  'Sunday'}, 
-  {code: 'fst', title:  'Feast'},
-  {code: 'mem', title:  'Memorial'}, 
-  {code: 'opt', title:  'Optional Memorial'}, 
-  {code: 'com', title:  'Commemoration'}, 
-  {code: 'wd', title:  'Weekday'},
-  {code: 'na', title:  'Not Applicable'}
+[ {code: 'sol', position: 1, title:  'Solemnity'}, 
+  {code: 'sun', position: 2, title:  'Sunday'}, 
+  {code: 'fst', position: 3, title:  'Feast'},
+  {code: 'mem', position: 4, title:  'Memorial'}, 
+  {code: 'opt', position: 5, title:  'Optional Memorial'}, 
+  {code: 'com', position: 6, title:  'Commemoration'}, 
+  {code: 'wd', position: 7, title:  'Weekday'},
+  {code: 'na', position: 9, title:  'Not Applicable'}
 ].each {|i| Rank.find_or_create_by_code(i)}
 
 [ {code: 'gen', title:  'General Calendar'}, 
@@ -80,3 +80,11 @@
   {code: 'V', title:  'Virgin'},
   {code: 'Vv', title:  'Virgins'}
 ].each {|i| Common.find_or_create_by_code(i)}
+
+admin = User.create!(name:     "Dane Falkner",
+                     email:    "dfalkner@divineoffice.org",
+                     password: "password",
+                     password_confirmation: "password"
+                     )                              
+admin.toggle!(:admin)
+admin.toggle!(:editor)

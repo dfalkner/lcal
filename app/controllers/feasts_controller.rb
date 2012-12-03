@@ -25,7 +25,6 @@ class FeastsController < ApplicationController
   # GET /feasts/new.json
   def new
     @feast = Feast.new
-    @commons = Common.all
 
     respond_to do |format|
       format.html # new.html.erb
