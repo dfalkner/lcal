@@ -1,0 +1,25 @@
+<%= simple_form_for @principal, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :year %>
+  <%= f.input :dominical_year %>
+  <%= f.input :epiphany %>
+  <%= f.input :baptism_of_the_lord %>
+  <%= f.input :ash_wednesday %>
+  <%= f.input :easter %>
+  <%= f.input :ascension %>
+  <%= f.input :ascension_sunday %>
+  <%= f.input :pentecost %>
+  <%= f.input :holy_trinity %>
+  <%= f.input :corpus_christi %>
+  <%= f.input :sacred_heart %>
+  <%= f.input :immaculate_heart %>
+  <%= f.input :first_sunday_of_advent %>
+  <%= f.input :start_of_ordinary_time_before_lent %>
+  <%= f.input :weeks_in_ordinary_time_before_lent %>
+  <%= f.input :start_of_ordinary_time_after_easter %>
+  <%= f.input :starting_week_of_ordinary_time_after_easter %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                principals_path, :class => 'btn' %>
+  </div>
+<% end %>

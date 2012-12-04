@@ -1,0 +1,55 @@
+<%- model_class = Principal -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human %></h1>
+</div>
+
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:year) %>:</strong></dt>
+  <dd><%= @principal.year %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:dominical_year) %>:</strong></dt>
+  <dd><%= @principal.dominical_year %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:epiphany) %>:</strong></dt>
+  <dd><%= @principal.epiphany %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:baptism_of_the_lord) %>:</strong></dt>
+  <dd><%= @principal.baptism_of_the_lord %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ash_wednesday) %>:</strong></dt>
+  <dd><%= @principal.ash_wednesday %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:easter) %>:</strong></dt>
+  <dd><%= @principal.easter %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ascension) %>:</strong></dt>
+  <dd><%= @principal.ascension %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:ascension_sunday) %>:</strong></dt>
+  <dd><%= @principal.ascension_sunday %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:pentecost) %>:</strong></dt>
+  <dd><%= @principal.pentecost %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:holy_trinity) %>:</strong></dt>
+  <dd><%= @principal.holy_trinity %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:corpus_christi) %>:</strong></dt>
+  <dd><%= @principal.corpus_christi %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:sacred_heart) %>:</strong></dt>
+  <dd><%= @principal.sacred_heart %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:immaculate_heart) %>:</strong></dt>
+  <dd><%= @principal.immaculate_heart %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:first_sunday_of_advent) %>:</strong></dt>
+  <dd><%= @principal.first_sunday_of_advent %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:start_of_ordinary_time_before_lent) %>:</strong></dt>
+  <dd><%= @principal.start_of_ordinary_time_before_lent %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:weeks_in_ordinary_time_before_lent) %>:</strong></dt>
+  <dd><%= @principal.weeks_in_ordinary_time_before_lent %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:start_of_ordinary_time_after_easter) %>:</strong></dt>
+  <dd><%= @principal.start_of_ordinary_time_after_easter %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:starting_week_of_ordinary_time_after_easter) %>:</strong></dt>
+  <dd><%= @principal.starting_week_of_ordinary_time_after_easter %></dd>
+</dl>
+
+<div class="form-actions">
+  <%= link_to t('.back', :default => t("helpers.links.back")),
+              principals_path, :class => 'btn'  %>
+  <%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_principal_path(@principal), :class => 'btn' %>
+  <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              principal_path(@principal),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>

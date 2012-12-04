@@ -1,4 +1,7 @@
 Lcal::Application.routes.draw do
+  resources :principals
+
+
   resources :ranks
 
 
