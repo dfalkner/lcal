@@ -1,15 +1,14 @@
-<%= semantic_form_for @calendar do |f| %>
-  <%= f.inputs do %>
-    <%= f.input :data %>
-    <%= f.input :season_id %>
-    <%= f.input :week %>
-    <%= f.input :day_of_week %>
-    <%= f.input :rank_id %>
-    <%= f.input :color_id %>
-    <%= f.input :title %>
-  <% end %>
-
-  <%= f.actions do %>
-    <%= f.action :submit, :as => :input %>
-  <% end %>
+<%= simple_form_for @calendar, :html => { :class => 'form-horizontal' } do |f| %>
+  <%= f.input :data %>
+  <%= f.input :season_id %>
+  <%= f.input :week %>
+  <%= f.input :day_of_week %>
+  <%= f.input :rank_id %>
+  <%= f.input :color_id %>
+  <%= f.input :title %>
+  <div class="form-actions">
+    <%= f.button :submit, :class => 'btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                calendars_path, :class => 'btn' %>
+  </div>
 <% end %>

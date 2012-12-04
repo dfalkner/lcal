@@ -1,35 +1,48 @@
-<h1>Listing calendars</h1>
-
-<table>
-  <tr>
-    <th>Data</th>
-    <th>Season</th>
-    <th>Week</th>
-    <th>Day of week</th>
-    <th>Rank</th>
-    <th>Color</th>
-    <th>Title</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @calendars.each do |calendar| %>
-  <tr>
-    <td><%= calendar.data %></td>
-    <td><%= calendar.season_id %></td>
-    <td><%= calendar.week %></td>
-    <td><%= calendar.day_of_week %></td>
-    <td><%= calendar.rank_id %></td>
-    <td><%= calendar.color_id %></td>
-    <td><%= calendar.title %></td>
-    <td><%= link_to 'Show', calendar %></td>
-    <td><%= link_to 'Edit', edit_calendar_path(calendar) %></td>
-    <td><%= link_to 'Destroy', calendar, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-  </tr>
-<% end %>
+<%- model_class = Calendar -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:data) %></th>
+      <th><%= model_class.human_attribute_name(:season_id) %></th>
+      <th><%= model_class.human_attribute_name(:week) %></th>
+      <th><%= model_class.human_attribute_name(:day_of_week) %></th>
+      <th><%= model_class.human_attribute_name(:rank_id) %></th>
+      <th><%= model_class.human_attribute_name(:color_id) %></th>
+      <th><%= model_class.human_attribute_name(:title) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @calendars.each do |calendar| %>
+      <tr>
+        <td><%= link_to calendar.id, calendar_path(calendar) %></td>
+        <td><%= calendar.data %></td>
+        <td><%= calendar.season_id %></td>
+        <td><%= calendar.week %></td>
+        <td><%= calendar.day_of_week %></td>
+        <td><%= calendar.rank_id %></td>
+        <td><%= calendar.color_id %></td>
+        <td><%= calendar.title %></td>
+        <td><%=l calendar.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_calendar_path(calendar), :class => 'btn btn-mini' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      calendar_path(calendar),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-mini btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
 </table>
 
-<br />
-
-<%= link_to 'New Calendar', new_calendar_path %>
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_calendar_path,
+            :class => 'btn btn-primary' %>
