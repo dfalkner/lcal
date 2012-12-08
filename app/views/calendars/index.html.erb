@@ -6,12 +6,13 @@
   <thead>
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:ordo_id) %></th>
       <th><%= model_class.human_attribute_name(:data) %></th>
-      <th><%= model_class.human_attribute_name(:season_id) %></th>
-      <th><%= model_class.human_attribute_name(:week) %></th>
-      <th><%= model_class.human_attribute_name(:day_of_week) %></th>
       <th><%= model_class.human_attribute_name(:rank_id) %></th>
+      <th><%= model_class.human_attribute_name(:season_id) %></th>
       <th><%= model_class.human_attribute_name(:color_id) %></th>
+      <th><%= model_class.human_attribute_name(:week_in_season) %></th>
+      <th><%= model_class.human_attribute_name(:day_of_week) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
@@ -21,12 +22,13 @@
     <% @calendars.each do |calendar| %>
       <tr>
         <td><%= link_to calendar.id, calendar_path(calendar) %></td>
+        <td><%= calendar.ordo_id %></td>
         <td><%= calendar.data %></td>
-        <td><%= calendar.season_id %></td>
-        <td><%= calendar.week %></td>
-        <td><%= calendar.day_of_week %></td>
         <td><%= calendar.rank_id %></td>
+        <td><%= calendar.season_id %></td>
         <td><%= calendar.color_id %></td>
+        <td><%= calendar.week_in_season %></td>
+        <td><%= calendar.day_of_week %></td>
         <td><%= calendar.title %></td>
         <td><%=l calendar.created_at %></td>
         <td>

@@ -14,6 +14,8 @@ gem 'less-rails'
 gem 'therubyracer'
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'simple_form'
+gem 'loggability'
+gem 'linguistics'
 
 group :development do
   gem 'rspec', '2.11.0'

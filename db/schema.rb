@@ -11,21 +11,20 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121204065509) do
+ActiveRecord::Schema.define(:version => 20121204200859) do
 
   create_table "calendars", :force => true do |t|
-    t.date     "data",        :null => false
+    t.integer  "ordo_id"
+    t.date     "data"
+    t.integer  "rank_id"
     t.integer  "season_id"
-    t.integer  "week"
-    t.string   "day_of_week"
-    t.integer  "rank_id",     :null => false
     t.integer  "color_id"
+    t.integer  "week_in_season"
+    t.string   "day_of_week"
     t.string   "title"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
   end
-
-  add_index "calendars", ["season_id"], :name => "index_calendars_on_season_id"
 
   create_table "colors", :force => true do |t|
     t.string   "code",       :null => false

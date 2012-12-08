@@ -4,18 +4,20 @@
 </div>
 
 <dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:ordo_id) %>:</strong></dt>
+  <dd><%= @calendar.ordo_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:data) %>:</strong></dt>
   <dd><%= @calendar.data %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:season_id) %>:</strong></dt>
-  <dd><%= @calendar.season_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:week) %>:</strong></dt>
-  <dd><%= @calendar.week %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:day_of_week) %>:</strong></dt>
-  <dd><%= @calendar.day_of_week %></dd>
   <dt><strong><%= model_class.human_attribute_name(:rank_id) %>:</strong></dt>
   <dd><%= @calendar.rank_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:season_id) %>:</strong></dt>
+  <dd><%= @calendar.season_id %></dd>
   <dt><strong><%= model_class.human_attribute_name(:color_id) %>:</strong></dt>
   <dd><%= @calendar.color_id %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:week_in_season) %>:</strong></dt>
+  <dd><%= @calendar.week_in_season %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:day_of_week) %>:</strong></dt>
+  <dd><%= @calendar.day_of_week %></dd>
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
   <dd><%= @calendar.title %></dd>
 </dl>

@@ -1,11 +1,11 @@
 Lcal::Application.routes.draw do
+  resources :calendars
+
+
   resources :principals
 
 
   resources :ranks
-
-
-  resources :calendars
 
 
   resources :seasons

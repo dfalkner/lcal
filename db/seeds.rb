@@ -5,6 +5,13 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+require 'Linguistics'
+Linguistics.use(:en)
+
+@years_into_future = 5 #number of years of data to create
+@years_into_past = 1
+
+@debug = 1
 
 if !(User.exists?(name: "Dane Falkner"))
   admin = User.create!(name:     "Dane Falkner",
@@ -28,7 +35,7 @@ end
 ].each {|i| Rank.find_or_create_by_code(i)}
 
 [ {code: 'gen', title:  'General Calendar'}, 
-  {code: 'us', title:  'United States of America'},
+  {code: 'usa', title:  'United States of America'},
   {code: 'usaa', title:  'United States of America Anglican'}, 
   {code: 'ar', title:  'Argentina'}, 
   {code: 'br', title:  'Brazil'}, 
@@ -56,6 +63,7 @@ end
   {code: 'adv', title:  'Advent'}, 
   {code: 'xmas', title:  'Christmas'},
   {code: 'lent', title:  'Lent'}, 
+  {code: 'hw', title:  'Holy Week'}, 
   {code: 'east', title:  'Easter'}, 
   {code: 'any', title:  'Any Season'},
   {code: 'na', title:  'Not Applicable'}
@@ -92,220 +100,132 @@ end
   {code: 'Vv', title:  'Virgins'}
 ].each {|i| Common.find_or_create_by_code(i)}
 
-#============== Principal Celebrations ======
 
-def easter(y)
-  # ==========================================
-  # Determin Easter Date for any given year based on http://www.assa.org.au/edm.html#Computer
-  # ==========================================  
-  first_digit, remainder, temp, t_a, t_b, t_c, t_d, t_e = 0, 0, 0, 0, 0, 0, 0, 0
+load("#{Rails.root}/db/seeds/import_principal_celebrations.rb")
 
-  first_digit = y / 100 #first 2 digits of year 
-  remainder_19 = y.modulo(19) #remainder of year / 19
+load("#{Rails.root}/db/seeds/initialize_calendars_ferial_and_principals.rb")
 
-  # calculate PFM (Pascal Full Moon) date 
-  temp = (first_digit - 15) / 2 + 202 - 11 * remainder_19 
+load("#{Rails.root}/db/seeds/import_proper_of_saints.rb")
 
-  case first_digit 
-  when 21, 24, 25, 27..32, 34, 35, 38 
-    temp = temp - 1 
-  when 33, 36, 37, 39, 40 
-    temp = temp - 2 
+
+# next need to add saint days to calendar
+
+#create_table "calendars", :force => true do |t|
+#  t.integer  "ordo_id"
+#  t.date     "data"
+#  t.integer  "rank_id"
+#  t.integer  "season_id"
+#  t.integer  "color_id"
+#  t.integer  "week_in_season"
+#  t.string   "day_of_week"
+#  t.string   "title"
+  
+#create_table "feasts", :force => true do |t|
+#  t.integer  "ordo_id"
+#  t.integer  "month"
+#  t.integer  "day"
+#  t.integer  "rank_id"
+#  t.integer  "color_id"
+#  t.string   "title"
+
+weekday_rank = Rank.find_by_code('wd')
+sunday_rank = Rank.find_by_code('sun')
+solemnity_rank = Rank.find_by_code('sol')
+feast_rank = Rank.find_by_code('fst')
+memorial_rank = Rank.find_by_code('mem')
+optional_rank = Rank.find_by_code('opt')
+
+
+
+general_ordo = Ordo.find_by_code('gen')
+usa_ordo = Ordo.find_by_code('usa')
+
+this_year = Date.today.year
+start_year = Date.new(this_year - @years_into_past).year
+end_year = Date.new(this_year + @years_into_future).year
+
+feasts = Feast.all
+
+start_year.upto end_year do |y|
+  
+  epiphany = Principal.find_by_year(y).epiphany
+  baptism_of_the_lord = Principal.find_by_year(y).baptism_of_the_lord
+  ash_wednesday = Principal.find_by_year(y).ash_wednesday
+  easter = Principal.find_by_year(y).easter
+  pentecost = Principal.find_by_year(y).pentecost
+  starting_week_of_ordinary_time_after_easter = Principal.find_by_year(y).starting_week_of_ordinary_time_after_easter
+  holy_trinity = Principal.find_by_year(y).holy_trinity
+  corpus_christi = Principal.find_by_year(y).corpus_christi
+  sacred_heart = Principal.find_by_year(y).sacred_heart
+  immaculate_heart = Principal.find_by_year(y).immaculate_heart
+  first_sunday_of_advent = Principal.find_by_year(y).first_sunday_of_advent
+  christmas = Date.new(y,12,25)
+  
+  
+  feasts.each do |f|
+    fday=Date.new(y, f.month, f.day)
+    cal = Calendar.where(data:fday, ordo_id:[f.ordo_id, general_ordo], rank_id:[solemnity_rank,sunday_rank,feast_rank]).first
+    if !cal.nil?
+        puts "Skipping existing #{fday} which has higher rank titled: #{cal.title}" if @debug >=1 
+        next 
+    end
+    cal = Calendar.where(data:fday, ordo_id:[f.ordo_id, general_ordo], rank_id:weekday_rank).first
+    if cal.nil?
+      puts "#{fday} with ordo_id:[f.ordo_id, general_ordo] and rank:weekday_rank) doesn't exist so creating" if @debug >=1 
+      cal = Calendar.new()
+    end
+
+    p fday if @debug >=1 
+    
+    case fday
+    when Date.new(y,1,2)..baptism_of_the_lord
+      cal.season_id = Season.find_by_code('xmas').id
+      cal.color_id = Color.find_by_code('white').id
+    when (baptism_of_the_lord+1)..(ash_wednesday-1)
+      cal.season_id = Season.find_by_code('ord').id
+      cal.color_id = Color.find_by_code('green').id
+    when (ash_wednesday)..(easter-1)
+      cal.season_id = Season.find_by_code('lent').id
+      cal.color_id = Color.find_by_code('violet').id
+    when easter..pentecost
+      cal.season_id = Season.find_by_code('east') .id 
+      cal.color_id = Color.find_by_code('white').id
+    when (pentecost+1)..(first_sunday_of_advent - 1)
+      cal.season_id = Season.find_by_code('ord').id
+      cal.color_id = Color.find_by_code('green').id
+    when (first_sunday_of_advent)..(christmas - 1)
+      cal.season_id = Season.find_by_code('adv').id
+      cal.color_id = Color.find_by_code('violet').id
+    when christmas..Date.new(y,12,31)
+      cal.season_id = Season.find_by_code('xmas').id
+      cal.color_id = Color.find_by_code('white').id
+    else
+      puts "#{fday} should not get here"
+    end
+    cal.ordo_id = f.ordo_id
+    cal.data = fday
+    cal.rank_id = f.rank_id
+    
+    if f.color_id != '' 
+      cal.color_id = f.color_id
+    end
+    
+  #  cal.week_in_season = Calendar.find_by_data(fday).week_in_season
+    cal.day_of_week = fday.wday
+    cal.title = f.title
+    
+    if !cal.valid?
+      puts "cal.valid?#{cal.valid?}" 
+      p cal
+    end
+    cal.save
+
+  
   end
-
-  temp = temp.modulo(30)
-
-  t_a = temp + 21 
-  t_a = t_a - 1 if temp == 29
-  t_a = t_a - 1 if (temp == 28 and remainder_19 > 10)
-
-  #find the next Sunday 
-  t_b = (t_a - 19).modulo(7)
-
-  t_c = (40 - first_digit).modulo(4) 
-  t_c = t_c + 1 if t_c == 3  
-  t_c = t_c + 1 if t_c > 1  
-
-  temp = y.modulo(100) 
-  t_d = (temp + temp / 4).modulo(7) 
-
-  t_e = ((20 - t_b - t_c - t_d).modulo(7)) + 1 
-  d = t_a + t_e 
-
-  #return the date 
-  if d > 31 then 
-    d = d - 31 
-    m = 4 
-  else 
-    m = 3 
-  end
-  edate = Date.new(y,m,d) # Easter Date
-end #when_is_easter
-
-def epiphany_usa(year) #epiphany, in USA, is first Sunday after Jan 1
-  temp = Date.new(year, 01, 02)
-  while !(temp.wday == 0) do temp += 1 end
-    temp
-end #epiphany
-  
-def epiphany(year) #epiphany 
-  temp = Date.new(year, 01, 06)
-  temp
-end #epiphany
-
-def baptism_of_the_lord(year) #baptism of the lord is 1st Sun after Jan 6 unless Epiphany, then next day
-  temp = Date.new(year, 01, 02)
-  while !(temp.wday ==0) do temp += 1 end #epiphany
-  case temp.day
-    when 2..6
-      temp += 1
-      while !(temp.wday ==0) do temp += 1 end
-  when 7
-    temp += 1 
-  when 8
-    temp += 1 
-  else
-    while !(temp.wday ==0) do temp += 1 end
-  end
-
-  temp
-end #baptism_of_the_lord
-
-def ash_wednesday(year) #ash wednesday is 46d before Easter
-  temp = easter year
-  temp = temp - 46
-end 
-
-def ascension(year) #ascension is 39d after Easter
-  temp = easter year
-  temp = temp + 39
-end
-
-def ascension_sunday(year) #ascension is observed on Sunday in most of USA 42d after Easter
-  temp = easter year
-  temp = temp + 42
-end
-
-def pentecost(year) #pentecost is 49d after Easter
-  temp = easter year
-  temp = temp + 49
-end
-
-def holy_trinity(year) #Holy Trinity is first sunday after Pentecost (Easter + 56d)
-  temp = easter year
-  temp = temp + 56
-end
-
-def corpus_christi(year) #corpus_christi is 63d after Easter (it is also the Thursday after Holy Trinity)
-  temp = easter year
-  temp = temp + 63
-end 
-
-def sacred_heart(year) # Sacred Heart is Friday following Second Sunday after Pentecost (Easter + 49d + 14d + 5d)
-  temp = easter year
-  temp = temp + 68
-end
-
-def immaculate_heart(year)# Immaculate Heart of Mary is the Saturday following the second sunday after Pentecost (Easter + 49d + 14d + 6d)
-  temp = easter year
-  temp = temp + 69
-end
-
-def first_sunday_of_advent(year) # first sunday of advent is four sundays before December 25
-  temp = Date.new(year, 12, 25)
-  while !(temp.wday == 0) do temp -= 1 end #4th Sunday of Advent
-  temp -= 21
 end
 
 
-today = Date.today
-year = today.year - 1
 
-year.upto(year+20) do |y|
-  principal = Principal.find_or_create_by_year(y)
-  principal.easter = easter(y)
-  principal.epiphany = epiphany_usa(y)
-  
-  baptism_of_the_lord = baptism_of_the_lord(y)
-  principal.baptism_of_the_lord = baptism_of_the_lord
-  
-  ash_wednesday = ash_wednesday(y)
-  principal.ash_wednesday = ash_wednesday
-  
-  principal.ascension = ascension(y)
-  principal.ascension_sunday = ascension_sunday(y)
-  principal.pentecost = pentecost(y)
-  principal.holy_trinity = holy_trinity(y)
-  principal.corpus_christi = corpus_christi(y)
-  principal.sacred_heart = sacred_heart(y)
-  principal.immaculate_heart = immaculate_heart(y)
-  principal.first_sunday_of_advent = first_sunday_of_advent(y)
 
-  principal.start_of_ordinary_time_before_lent = principal.baptism_of_the_lord + 1
-  principal.start_of_ordinary_time_after_easter = principal.pentecost + 1
-  
-  principal.weeks_in_ordinary_time_before_lent = (((ash_wednesday+3)-(baptism_of_the_lord)) ).to_i.div(7) + 1
-  
-  dominical = %w[ G F E D C B A]
-  wday = Date.new(y,1,1).wday 
-  leap = Date.new(y,1,1).leap?
-  
-  case wday
-  when 0
-    if !leap
-      dominical_year = "A"
-    else
-      dominical_year = "AG"
-    end
-  when 1
-    if !leap
-      dominical_year = "G"
-    else
-      dominical_year = "GA"
-    end
-  when 2
-    if !leap
-      dominical_year = "F"
-    else
-      dominical_year = "FE"
-    end
-  when 3
-    if !leap
-      dominical_year = "E"
-    else
-      dominical_year = "ED"
-    end
-  when 4
-    if !leap
-      dominical_year = "D"
-    else
-      dominical_year = "DC"
-    end
-  when 5
-    if !leap
-      dominical_year = "C"
-    else
-      dominical_year = "CB"
-    end
-  when 6
-    if !leap
-      dominical_year = "B"
-    else
-      dominical_year = "BA"
-    end
-  end
-  
-  principal.dominical_year = dominical_year
-  
-  if dominical_year =~ /.*[B].*/
-    principal.starting_week_of_ordinary_time_after_easter =  36 - (((principal.first_sunday_of_advent) - principal.pentecost).to_i).div(7)
-  else
-    principal.starting_week_of_ordinary_time_after_easter =  35 - (((principal.first_sunday_of_advent) - principal.pentecost).to_i).div(7)
-  end
-  
-
-  
-  principal.save
-  
-end
+# load("#{Rails.root}/db/seeds/load_calendar_with_principal_celebrations.rb")
 
