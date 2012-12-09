@@ -1,4 +1,4 @@
-
+require 'csv'
   import_file = "#{Rails.root}/db/seeds/proper-of-saints.csv"
 
   puts "importing #{import_file}"

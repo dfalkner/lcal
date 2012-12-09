@@ -17,6 +17,7 @@ gem 'simple_form'
 gem 'loggability'
 gem 'linguistics', '1.0.9'
 
+
 group :development do
   gem 'rspec', '2.11.0'
   gem 'rspec-mocks', '2.11.3'

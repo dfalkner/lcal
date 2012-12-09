@@ -11,7 +11,7 @@ Linguistics.use(:en)
 @years_into_future = 5 #number of years of data to create
 @years_into_past = 1
 
-@debug = 0
+@debug = 1
 
 if !(User.exists?(name: "Dane Falkner"))
   admin = User.create!(name:     "Dane Falkner",
