@@ -1,7 +1,6 @@
 
-  require 'CSV'
-
   import_file = "#{Rails.root}/db/seeds/proper-of-saints.csv"
+
   puts "importing #{import_file}"
   @feasts = CSV.read(import_file)
   debug = 0
