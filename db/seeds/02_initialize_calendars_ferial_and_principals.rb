@@ -1,3 +1,4 @@
+puts "02_initialize_calendars_ferial_and_principals"
 
 DAYNAMES = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
 

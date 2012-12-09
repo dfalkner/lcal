@@ -10,5 +10,6 @@ class CreateFeasts < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :feasts, [:ordo_id, :title], unique: true
   end
 end
