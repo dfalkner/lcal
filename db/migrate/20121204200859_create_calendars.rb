@@ -7,7 +7,7 @@ class CreateCalendars < ActiveRecord::Migration
       t.integer :season_id
       t.integer :color_id
       t.integer :week_in_season
-      t.string :day_of_week
+      t.integer :day_of_week
       t.string :title
 
       t.timestamps

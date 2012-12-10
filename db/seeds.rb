@@ -8,21 +8,26 @@
 
 Linguistics.use(:en)
 
-@years_into_future = 5 #number of years of data to create
-@years_into_past = 1
+@years_into_future = 10 #number of years of data to create
+@years_into_past = 0
 
 @debug = 0
 
-if !(User.exists?(name: "Dane Falkner"))
-  admin = User.create!(name:     "Dane Falkner",
-                       email:    "dfalkner@divineoffice.org",
-                       password: "g00dw0rks",
-                       password_confirmation: "g00dw0rks"
-                       )                              
-  admin.toggle!(:admin)
-  admin.toggle!(:editor)
-  puts "Added admin user"
-end
+
+puts 'CREATING ROLES'
+Role.create([
+  { :name => 'admin' }, 
+  { :name => 'user' }, 
+  { :name => 'editor' }
+], :without_protection => true)
+puts 'SETTING UP DEFAULT USER LOGIN'
+user = User.create! :name => 'Dane', :email => 'dfalkner@divineoffice.org', :password => 'password', :password_confirmation => 'password'
+puts 'New user created: ' << user.name
+user2 = User.create! :name => 'Monica', :email => 'monica@surgeworks.com', :password => 'password', :password_confirmation => 'password'
+puts 'New user created: ' << user2.name
+user.add_role :admin
+user2.add_role :editor
+
 
 [ {code: 'sol', position: 1, title:  'Solemnity'}, 
   {code: 'sun', position: 2, title:  'Sunday'}, 
@@ -100,16 +105,17 @@ end
   {code: 'Vv', title:  'Virgins'}
 ].each {|i| Common.find_or_create_by_code(i)}
 
-
 load("#{Rails.root}/db/seeds/01_import_principal_celebrations.rb")
 
 load("#{Rails.root}/db/seeds/02_initialize_calendars_ferial_and_principals.rb")
 
 load("#{Rails.root}/db/seeds/03_import_proper_of_saints_tsv.rb")
 
-=begin
+load("#{Rails.root}/db/seeds/04_copy_feasts_to_calendar.rb")
 
-04_copy_feasts_to_calendar.rb 
+# load("#{Rails.root}/db/seeds/05_export_calendar_files.rb")
 
-=end
+
+
+
 

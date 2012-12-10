@@ -1,4 +1,4 @@
-puts "01_import_principal_celebrations"
+puts "\n\n01_import_principal_celebrations"
 
 #============== Principal Celebrations ======
 

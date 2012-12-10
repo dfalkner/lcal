@@ -1,4 +1,4 @@
-puts "04_copy_feasts_to_calendar"
+puts "\n\n04_copy_feasts_to_calendar"
 
 weekday_rank = Rank.find_by_code('wd')
 sunday_rank = Rank.find_by_code('sun')
@@ -78,7 +78,10 @@ start_year.upto end_year do |y|
     cal.data = fday
     cal.rank_id = f.rank_id
     
-    if f.color_id != '' 
+#    if f.color_id != '' 
+#      cal.color_id = f.color_id
+#    end
+    if !f.color_id.nil?
       cal.color_id = f.color_id
     end
     
