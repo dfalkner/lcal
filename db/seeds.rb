@@ -13,6 +13,7 @@ Linguistics.use(:en)
 
 @debug = 0
 
+=begin
 
 puts 'CREATING ROLES'
 Role.create([
@@ -109,6 +110,7 @@ load("#{Rails.root}/db/seeds/01_import_principal_celebrations.rb")
 
 load("#{Rails.root}/db/seeds/02_initialize_calendars_ferial_and_principals.rb")
 
+=end
 load("#{Rails.root}/db/seeds/03_import_proper_of_saints_tsv.rb")
 
 load("#{Rails.root}/db/seeds/04_copy_feasts_to_calendar.rb")

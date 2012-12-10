@@ -22,11 +22,11 @@ f.each do |line|
 
   feast.ordo = ordo
 
-  feast.month = line_part[1].byteslice(0,2).to_i
-  puts "month:#{feast.month} = #{line_part[1].byteslice(0,2)}.to_i" if @debug >= 1
+  feast.month = line_part[1][0..1].to_i
+  puts "month:#{feast.month} = #{line_part[1][0..1]}.to_i" if @debug >= 1
 
-  feast.day = line_part[1].byteslice(2,2).to_i
-  puts "day:#{feast.day} = #{line_part[1].byteslice(2,2)}.to_i" if @debug >= 1
+  feast.day = line_part[1][2..3].to_i
+  puts "day:#{feast.day} = #{line_part[1][2..3]}.to_i" if @debug >= 1
 
   rank = Rank.find_by_code(line_part[2])
   puts "rank:#{rank} = Rank.find_by_code(#{line_part[2]})" if @debug >= 1
