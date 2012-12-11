@@ -1,3 +1,24 @@
 <h3>Home</h3>
 
 
+  <% if current_user.has_role? :admin %>
+    <li>
+    <%= link_to('Admin', users_path) %>
+    </li>
+  <% end %>
+
+
+  <% if current_user.has_role? :editor or current_user.has_role? :admin %>
+    <li>
+    <%= link_to('Calendar', calendars_path) %>
+    </li>
+    <li>
+    <%= link_to('Principal Celebrations', principals_path) %>
+    </li>
+    <li>
+    <%= link_to('Saint Feast Days', feasts_path) %>
+    </li>
+    <li>
+    <%= link_to('Ordos', ordos_path) %>
+    </li>
+  <% end %>

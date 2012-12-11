@@ -1,6 +1,15 @@
-<%- model_class = Calendar -%>
-<div class="page-header">
-  <h1><%=t '.title', :default => t('helpers.titles.edit', :model => model_class.model_name.human,
-                                   :default => "Edit #{model_class.model_name.human}") %></h1>
-</div>
-<%= render :partial => 'form' %>
+<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<%= simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name), :html => { :method => :put, :class => 'form-vertical' }) do |f| %>
+  <%= f.error_notification %>
+  <%= display_base_errors resource %>
+  <%= f.input :ordo %>
+  <%= f.input :data, :require => true %>
+  <%= f.input :rank_id %>
+  <%= f.input :season_id %>
+  <%= f.input :color_id %>
+  <%= f.input :week_in_season %>
+  <%= f.input :day_of_week %>
+  <%= f.input :title, :autofocus => true %>
+  <%= f.button :submit, 'Update', :class => 'btn-primary' %>
+<% end %>
+<%= link_to "Back", :back %>

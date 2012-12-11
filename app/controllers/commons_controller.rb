@@ -1,7 +1,11 @@
 class CommonsController < ApplicationController
+  before_filter :authenticate_user!
   # GET /commons
   # GET /commons.json
   def index
+    
+    authorize! :index, @user, :message => 'Not authorized as an administrator.'
+    
     @commons = Common.all
 
     respond_to do |format|
@@ -56,22 +60,25 @@ class CommonsController < ApplicationController
   # PUT /commons/1
   # PUT /commons/1.json
   def update
+    authorize! :update, @user, :message => 'Not authorized as an editor.'
     @common = Common.find(params[:id])
 
     respond_to do |format|
-      if @common.update_attributes(params[:common])
+      if @common.update_attributes(params[:common], :as => :editor)
         format.html { redirect_to @common, notice: 'Common was successfully updated.' }
         format.json { head :no_content }
       else
-        format.html { render action: "edit" }
-        format.json { render json: @common.errors, status: :unprocessable_entity }
+
+        redirect_to commons_path, :alert => "Unable to update common."
       end
     end
   end
+  
 
   # DELETE /commons/1
   # DELETE /commons/1.json
   def destroy
+    authorize! :destroy, @user, :message => 'Not authorized as an administrator.'
     @common = Common.find(params[:id])
     @common.destroy
 

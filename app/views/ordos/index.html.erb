@@ -8,7 +8,6 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:code) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -18,7 +17,6 @@
         <td><%= link_to ordo.id, ordo_path(ordo) %></td>
         <td><%= ordo.code %></td>
         <td><%= ordo.title %></td>
-        <td><%=l ordo.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_ordo_path(ordo), :class => 'btn btn-mini' %>

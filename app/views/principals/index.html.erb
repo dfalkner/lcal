@@ -9,22 +9,21 @@
       <th><%= model_class.human_attribute_name(:year) %></th>
       <th><%= model_class.human_attribute_name(:dominical_year) %></th>
       <th><%= model_class.human_attribute_name(:epiphany) %></th>
-      <th><%= model_class.human_attribute_name(:baptism_of_the_lord) %></th>
-      <th><%= model_class.human_attribute_name(:ash_wednesday) %></th>
+      <th><%= model_class.human_attribute_name(:bapt_of_lord) %></th>
+      <th><%= model_class.human_attribute_name(:ash_wed) %></th>
       <th><%= model_class.human_attribute_name(:easter) %></th>
-      <th><%= model_class.human_attribute_name(:ascension) %></th>
-      <th><%= model_class.human_attribute_name(:ascension_sunday) %></th>
+      <th><%= model_class.human_attribute_name(:ascen) %></th>
+      <th><%= model_class.human_attribute_name(:ascen_sunday) %></th>
       <th><%= model_class.human_attribute_name(:pentecost) %></th>
       <th><%= model_class.human_attribute_name(:holy_trinity) %></th>
       <th><%= model_class.human_attribute_name(:corpus_christi) %></th>
       <th><%= model_class.human_attribute_name(:sacred_heart) %></th>
       <th><%= model_class.human_attribute_name(:immaculate_heart) %></th>
-      <th><%= model_class.human_attribute_name(:first_sunday_of_advent) %></th>
-      <th><%= model_class.human_attribute_name(:start_of_ordinary_time_before_lent) %></th>
-      <th><%= model_class.human_attribute_name(:weeks_in_ordinary_time_before_lent) %></th>
-      <th><%= model_class.human_attribute_name(:start_of_ordinary_time_after_easter) %></th>
-      <th><%= model_class.human_attribute_name(:starting_week_of_ordinary_time_after_easter) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:first_sun_of_advent) %></th>
+      <th><%= model_class.human_attribute_name(:start_of_ordinary) %></th>
+      <th><%= model_class.human_attribute_name(:ord_weeks_before_lent) %></th>
+      <th><%= model_class.human_attribute_name(:ord_start_after_easter) %></th>
+      <th><%= model_class.human_attribute_name(:ord_resumes_on_week) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -34,23 +33,22 @@
         <td><%= link_to principal.id, principal_path(principal) %></td>
         <td><%= principal.year %></td>
         <td><%= principal.dominical_year %></td>
-        <td><%= principal.epiphany %></td>
-        <td><%= principal.baptism_of_the_lord %></td>
-        <td><%= principal.ash_wednesday %></td>
-        <td><%= principal.easter %></td>
-        <td><%= principal.ascension %></td>
-        <td><%= principal.ascension_sunday %></td>
-        <td><%= principal.pentecost %></td>
-        <td><%= principal.holy_trinity %></td>
-        <td><%= principal.corpus_christi %></td>
-        <td><%= principal.sacred_heart %></td>
-        <td><%= principal.immaculate_heart %></td>
-        <td><%= principal.first_sunday_of_advent %></td>
-        <td><%= principal.start_of_ordinary_time_before_lent %></td>
+        <td><%= principal.epiphany.strftime("%b %d") %></td>
+        <td><%= principal.baptism_of_the_lord.strftime("%b %d") %></td>
+        <td><%= principal.ash_wednesday.strftime("%b %d") %></td>
+        <td><%= principal.easter.strftime("%b %d") %></td>
+        <td><%= principal.ascension.strftime("%b %d") %></td>
+        <td><%= principal.ascension_sunday.strftime("%b %d") %></td>
+        <td><%= principal.pentecost.strftime("%b %d") %></td>
+        <td><%= principal.holy_trinity.strftime("%b %d") %></td>
+        <td><%= principal.corpus_christi.strftime("%b %d") %></td>
+        <td><%= principal.sacred_heart.strftime("%b %d") %></td>
+        <td><%= principal.immaculate_heart.strftime("%b %d") %></td>
+        <td><%= principal.first_sunday_of_advent.strftime("%b %d") %></td>
+        <td><%= principal.start_of_ordinary_time_before_lent.strftime("%b %d") %></td>
         <td><%= principal.weeks_in_ordinary_time_before_lent %></td>
-        <td><%= principal.start_of_ordinary_time_after_easter %></td>
+        <td><%= principal.start_of_ordinary_time_after_easter.strftime("%b %d") %></td>
         <td><%= principal.starting_week_of_ordinary_time_after_easter %></td>
-        <td><%=l principal.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_principal_path(principal), :class => 'btn btn-mini' %>
