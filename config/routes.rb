@@ -18,6 +18,7 @@ Lcal::Application.routes.draw do
 
   resources :colors
 
+  devise_for :commons
   resources :commons
 
   resources :feasts
