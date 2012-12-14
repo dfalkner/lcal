@@ -13,8 +13,6 @@ Linguistics.use(:en)
 
 @debug = 0
 
-=begin
-
 puts 'CREATING ROLES'
 Role.create([
   { :name => 'admin' }, 
@@ -30,13 +28,13 @@ user.add_role :admin
 user2.add_role :editor
 
 
-[ {code: 'sol', position: 1, title:  'Solemnity'}, 
-  {code: 'sun', position: 2, title:  'Sunday'}, 
-  {code: 'fst', position: 3, title:  'Feast'},
-  {code: 'mem', position: 4, title:  'Memorial'}, 
+[ {code: 'sol', position: 0, title:  'Solemnity'}, 
+  {code: 'sun', position: 1, title:  'Sunday'}, 
+  {code: 'fst', position: 2, title:  'Feast'},
+  {code: 'mem', position: 3, title:  'Memorial'}, 
+  {code: 'wd', position: 4, title:  'Weekday'},
   {code: 'opt', position: 5, title:  'Optional Memorial'}, 
   {code: 'com', position: 6, title:  'Commemoration'}, 
-  {code: 'wd', position: 7, title:  'Weekday'},
   {code: 'na', position: 9, title:  'Not Applicable'}
 ].each {|i| Rank.find_or_create_by_code(i)}
 
@@ -110,12 +108,12 @@ load("#{Rails.root}/db/seeds/01_import_principal_celebrations.rb")
 
 load("#{Rails.root}/db/seeds/02_initialize_calendars_ferial_and_principals.rb")
 
-=end
+
 load("#{Rails.root}/db/seeds/03_import_proper_of_saints_tsv.rb")
 
 load("#{Rails.root}/db/seeds/04_copy_feasts_to_calendar.rb")
 
-# load("#{Rails.root}/db/seeds/05_export_calendar_files.rb")
+load("#{Rails.root}/db/seeds/05_export_calendar_files.rb")
 
 
 
