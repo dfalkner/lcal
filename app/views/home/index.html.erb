@@ -1,24 +1,46 @@
-<h3>Home</h3>
-
-
-  <% if current_user.has_role? :admin %>
-    <li>
-    <%= link_to('Admin', users_path) %>
-    </li>
-  <% end %>
-
-
-  <% if current_user.has_role? :editor or current_user.has_role? :admin %>
-    <li>
-    <%= link_to('Calendar', calendars_path) %>
+ <h3>Calendars</h3>
+  <ul>
+	<li>
+    <%= link_to('Liturgical Calendars', calendars_path) %>
     </li>
     <li>
-    <%= link_to('Principal Celebrations', principals_path) %>
+    <%= link_to('Principal Celebrations of the Roman Calendar', principals_path) %>
     </li>
     <li>
-    <%= link_to('Saint Feast Days', feasts_path) %>
+    <%= link_to('Saint Feast Days for all Ordos', feasts_path) %>
     </li>
     <li>
     <%= link_to('Ordos', ordos_path) %>
-    </li>
-  <% end %>
+    </li></ul>
+<% if user_signed_in? %>
+  <%  if current_user.has_role? :editor or current_user.has_role? :admin %>
+    <h3>Data Tables</h3>
+	<ul><li>
+	<%= link_to('Commons', commons_path) %>
+	</li>
+	<li>
+	<%= link_to('Ranks', ranks_path) %>
+	</li>
+	<li>
+	<%= link_to('Seasons', seasons_path) %>
+	</li></ul>
+ <% end %>
+
+ <% if current_user.has_role? :admin %>
+ <h3>Admin Functions</h3>
+   <ul><li>
+   <%= link_to('Users', users_path) %>
+   </li></ul>
+ <%  end %>
+
+  <%  if current_user.has_role? :editor or current_user.has_role? :admin %>
+    <h3>Export Functions</h3>
+	<ul><li>
+	<%= link_to('Export Liturgical Calendars (under construction)', ) %>
+	</li>
+
+	</li></ul>
+ <% end %>
+
+
+<% end %>

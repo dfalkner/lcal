@@ -45,7 +45,7 @@ start_date.upto end_date do |d|
   title = ''
   
   cal = Calendar.new(data:d)
-  cal.day_of_week = d.wday
+  cal.day_of_week_id = d.wday + 1
 
   cal.ordo_id = ordo.id
   d.sunday? ? cal.rank_id = sunday_rank.id : cal.rank_id = weekday_rank.id

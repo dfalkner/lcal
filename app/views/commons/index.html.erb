@@ -18,7 +18,7 @@
         <td><%= link_to common.id, common_path(common) %></td>
         <td><%= common.code %></td>
         <td><%= common.title %></td>
-        <td><%=l common.created_at.strftime("%b %d %Y") %></td>
+        <td><%= common.created_at.strftime("%b %d %Y") %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_common_path(common), :class => 'btn btn-mini' %>

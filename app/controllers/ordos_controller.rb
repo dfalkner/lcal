@@ -1,4 +1,5 @@
 class OrdosController < ApplicationController
+
   # GET /ordos
   # GET /ordos.json
   def index
@@ -24,6 +25,7 @@ class OrdosController < ApplicationController
   # GET /ordos/new
   # GET /ordos/new.json
   def new
+    authorize! :index, @user, :message => 'Not authorized as an administrator.'
     @ordo = Ordo.new
 
     respond_to do |format|
@@ -34,12 +36,14 @@ class OrdosController < ApplicationController
 
   # GET /ordos/1/edit
   def edit
+    authorize! :index, @user, :message => 'Not authorized as an administrator.'
     @ordo = Ordo.find(params[:id])
   end
 
   # POST /ordos
   # POST /ordos.json
   def create
+    authorize! :index, @user, :message => 'Not authorized as an administrator.'
     @ordo = Ordo.new(params[:ordo])
 
     respond_to do |format|
@@ -56,6 +60,7 @@ class OrdosController < ApplicationController
   # PUT /ordos/1
   # PUT /ordos/1.json
   def update
+    authorize! :index, @user, :message => 'Not authorized as an administrator.'
     @ordo = Ordo.find(params[:id])
 
     respond_to do |format|
@@ -72,6 +77,7 @@ class OrdosController < ApplicationController
   # DELETE /ordos/1
   # DELETE /ordos/1.json
   def destroy
+    authorize! :index, @user, :message => 'Not authorized as an administrator.'
     @ordo = Ordo.find(params[:id])
     @ordo.destroy
 

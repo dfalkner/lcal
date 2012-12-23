@@ -4,6 +4,7 @@ class Rank < ActiveRecord::Base
   has_many :calendars
   validates :code, :title, :presence => true
   default_scope order("position ASC")
+  resourcify
   
   def to_s
     title

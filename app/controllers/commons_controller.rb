@@ -1,11 +1,8 @@
 class CommonsController < ApplicationController
-  before_filter :authenticate_user!
+
   # GET /commons
   # GET /commons.json
   def index
-    
-    authorize! :index, @user, :message => 'Not authorized as an administrator.'
-    
     @commons = Common.all
 
     respond_to do |format|
@@ -28,6 +25,7 @@ class CommonsController < ApplicationController
   # GET /commons/new
   # GET /commons/new.json
   def new
+    authorize! :index, @user, :message => 'Not authorized.'
     @common = Common.new
 
     respond_to do |format|
@@ -38,12 +36,14 @@ class CommonsController < ApplicationController
 
   # GET /commons/1/edit
   def edit
+    authorize! :index, @user, :message => 'Not authorized.'
     @common = Common.find(params[:id])
   end
 
   # POST /commons
   # POST /commons.json
   def create
+    authorize! :index, @user, :message => 'Not authorized.'
     @common = Common.new(params[:common])
 
     respond_to do |format|

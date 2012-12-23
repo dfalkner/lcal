@@ -6,21 +6,28 @@ Lcal::Application.routes.draw do
   devise_for :users
   resources :users
   
+  devise_for :calendars
   resources :calendars
 
+  devise_for :principals
   resources :principals
 
+  devise_for :ranks
   resources :ranks
 
+  devise_for :seasons
   resources :seasons
 
+  devise_for :ordos
   resources :ordos
 
+  devise_for :colors
   resources :colors
 
   devise_for :commons
   resources :commons
 
+  devise_for :feasts
   resources :feasts
 
 #  resources :users

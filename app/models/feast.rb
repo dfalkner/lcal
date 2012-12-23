@@ -5,6 +5,8 @@ class Feast < ActiveRecord::Base
   belongs_to :color
   has_and_belongs_to_many :commons
   
+  resourcify
+  
   validates :day, :month, :ordo_id, :rank_id, :title, :presence => true
   
   def to_s

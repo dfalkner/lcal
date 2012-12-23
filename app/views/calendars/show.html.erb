@@ -5,15 +5,15 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:ordo_id) %>:</strong></dt>
-  <dd><%= @calendar.ordo_id %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:data) %>:</strong></dt>
+  <dd><%= @calendar.ordo %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
   <dd><%= @calendar.data %></dd>
   <dt><strong><%= model_class.human_attribute_name(:rank_id) %>:</strong></dt>
-  <dd><%= @calendar.rank_id %></dd>
+  <dd><%= @calendar.rank %></dd>
   <dt><strong><%= model_class.human_attribute_name(:season_id) %>:</strong></dt>
-  <dd><%= @calendar.season_id %></dd>
+  <dd><%= @calendar.season %></dd>
   <dt><strong><%= model_class.human_attribute_name(:color_id) %>:</strong></dt>
-  <dd><%= @calendar.color_id %></dd>
+  <dd><%= @calendar.color %></dd>
   <dt><strong><%= model_class.human_attribute_name(:week_in_season) %>:</strong></dt>
   <dd><%= @calendar.week_in_season %></dd>
   <dt><strong><%= model_class.human_attribute_name(:day_of_week) %>:</strong></dt>
@@ -23,10 +23,12 @@
 </dl>
 
 <div class="form-actions">
-  <%= link_to t('.back', :default => t("helpers.links.back")),
-              calendars_path, :class => 'btn'  %>
+
+ <%= link_to 'Back', calendars_path, :class => 'btn' %>
+
   <%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_calendar_path(@calendar), :class => 'btn' %>
+                edit_calendar_path(@calendar), :class => 'btn' %>
+	
   <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
               calendar_path(@calendar),
               :method => 'delete',

@@ -20,7 +20,7 @@
         <td><%= rank.code %></td>
         <td><%= rank.title %></td>
         <td><%= rank.position %></td>
-        <td><%=l rank.created_at %></td>
+        <td><%= rank.created_at.strftime("%b %d %Y") %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_rank_path(rank), :class => 'btn btn-mini' %>

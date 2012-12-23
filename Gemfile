@@ -10,8 +10,8 @@ gem 'annotate'
 gem 'gravatar_image_tag', '1.1.3'
 gem 'jquery-rails', '2.1.3'
 gem 'will_paginate', '~> 3.0.3'
-gem 'bootstrap-will_paginate', '0.0.9'
-gem 'therubyracer'
+gem 'bootstrap-will_paginate'
+gem "therubyracer", "~> 0.11.0"
 gem 'loggability'
 gem "bootstrap-sass"
 gem "devise"
@@ -20,6 +20,10 @@ gem "rolify"
 gem "simple_form"
 gem "quiet_assets"
 gem 'linguistics', '1.0.9'
+gem 'icalendar'
+gem 'libv8'
+gem 'figaro', "~> 0.5.0"
+
 
 
 group :development do
