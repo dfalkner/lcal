@@ -4,6 +4,8 @@ class Color < ActiveRecord::Base
   has_many :calendars
   has_many :feasts
   
+  resourcify
+  
   def to_s
     title
   end

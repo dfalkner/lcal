@@ -1,4 +1,5 @@
 class SeasonsController < ApplicationController
+
   # GET /seasons
   # GET /seasons.json
   def index
@@ -24,6 +25,7 @@ class SeasonsController < ApplicationController
   # GET /seasons/new
   # GET /seasons/new.json
   def new
+    authorize! :index, @user, :message => 'Not authorized.'
     @season = Season.new
 
     respond_to do |format|
@@ -34,12 +36,14 @@ class SeasonsController < ApplicationController
 
   # GET /seasons/1/edit
   def edit
+    authorize! :index, @user, :message => 'Not authorized.'
     @season = Season.find(params[:id])
   end
 
   # POST /seasons
   # POST /seasons.json
   def create
+    authorize! :index, @user, :message => 'Not authorized.'
     @season = Season.new(params[:season])
 
     respond_to do |format|
@@ -56,6 +60,7 @@ class SeasonsController < ApplicationController
   # PUT /seasons/1
   # PUT /seasons/1.json
   def update
+    authorize! :index, @user, :message => 'Not authorized.'
     @season = Season.find(params[:id])
 
     respond_to do |format|
@@ -72,6 +77,7 @@ class SeasonsController < ApplicationController
   # DELETE /seasons/1
   # DELETE /seasons/1.json
   def destroy
+    authorize! :index, @user, :message => 'Not authorized.'
     @season = Season.find(params[:id])
     @season.destroy
 

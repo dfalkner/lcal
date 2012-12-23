@@ -1,4 +1,5 @@
 class FeastsController < ApplicationController
+ 
   # GET /feasts
   # GET /feasts.json
   def index
@@ -24,6 +25,7 @@ class FeastsController < ApplicationController
   # GET /feasts/new
   # GET /feasts/new.json
   def new
+    authorize! :index, @user, :message => 'Not authorized.'
     @feast = Feast.new
 
     respond_to do |format|
@@ -34,12 +36,14 @@ class FeastsController < ApplicationController
 
   # GET /feasts/1/edit
   def edit
+    authorize! :index, @user, :message => 'Not authorized.'
     @feast = Feast.find(params[:id])
   end
 
   # POST /feasts
   # POST /feasts.json
   def create
+    authorize! :index, @user, :message => 'Not authorized.'
     @feast = Feast.new(params[:feast])
 
     respond_to do |format|
@@ -56,6 +60,7 @@ class FeastsController < ApplicationController
   # PUT /feasts/1
   # PUT /feasts/1.json
   def update
+    authorize! :index, @user, :message => 'Not authorized.'
     @feast = Feast.find(params[:id])
 
     respond_to do |format|
@@ -72,6 +77,7 @@ class FeastsController < ApplicationController
   # DELETE /feasts/1
   # DELETE /feasts/1.json
   def destroy
+    authorize! :index, @user, :message => 'Not authorized.'
     @feast = Feast.find(params[:id])
     @feast.destroy
 

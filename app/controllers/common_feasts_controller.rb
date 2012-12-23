@@ -1,6 +1,5 @@
 class CommonFeastsController < ApplicationController
-  # GET /common_feasts
-  # GET /common_feasts.json
+ 
   def index
     @common_feasts = CommonFeast.all
 
@@ -24,6 +23,7 @@ class CommonFeastsController < ApplicationController
   # GET /common_feasts/new
   # GET /common_feasts/new.json
   def new
+    authorize! :index, @user, :message => 'Not authorized.'
     @common_feast = CommonFeast.new
 
     respond_to do |format|
@@ -34,12 +34,14 @@ class CommonFeastsController < ApplicationController
 
   # GET /common_feasts/1/edit
   def edit
+    authorize! :index, @user, :message => 'Not authorized.'
     @common_feast = CommonFeast.find(params[:id])
   end
 
   # POST /common_feasts
   # POST /common_feasts.json
   def create
+    authorize! :index, @user, :message => 'Not authorized.'
     @common_feast = CommonFeast.new(params[:common_feast])
 
     respond_to do |format|
@@ -56,6 +58,7 @@ class CommonFeastsController < ApplicationController
   # PUT /common_feasts/1
   # PUT /common_feasts/1.json
   def update
+    authorize! :index, @user, :message => 'Not authorized.'
     @common_feast = CommonFeast.find(params[:id])
 
     respond_to do |format|
@@ -72,6 +75,7 @@ class CommonFeastsController < ApplicationController
   # DELETE /common_feasts/1
   # DELETE /common_feasts/1.json
   def destroy
+    authorize! :index, @user, :message => 'Not authorized.'
     @common_feast = CommonFeast.find(params[:id])
     @common_feast.destroy
 

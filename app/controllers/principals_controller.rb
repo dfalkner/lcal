@@ -24,6 +24,7 @@ class PrincipalsController < ApplicationController
   # GET /principals/new
   # GET /principals/new.json
   def new
+    authorize! :index, @user, :message => 'Not authorized.'
     @principal = Principal.new
 
     respond_to do |format|
@@ -34,12 +35,14 @@ class PrincipalsController < ApplicationController
 
   # GET /principals/1/edit
   def edit
+    authorize! :index, @user, :message => 'Not authorized.'
     @principal = Principal.find(params[:id])
   end
 
   # POST /principals
   # POST /principals.json
   def create
+    authorize! :index, @user, :message => 'Not authorized.'
     @principal = Principal.new(params[:principal])
 
     respond_to do |format|
@@ -56,6 +59,7 @@ class PrincipalsController < ApplicationController
   # PUT /principals/1
   # PUT /principals/1.json
   def update
+    authorize! :index, @user, :message => 'Not authorized.'
     @principal = Principal.find(params[:id])
 
     respond_to do |format|
@@ -72,6 +76,7 @@ class PrincipalsController < ApplicationController
   # DELETE /principals/1
   # DELETE /principals/1.json
   def destroy
+    authorize! :index, @user, :message => 'Not authorized.'
     @principal = Principal.find(params[:id])
     @principal.destroy
 

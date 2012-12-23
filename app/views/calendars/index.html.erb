@@ -2,10 +2,10 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
+<%= will_paginate @calendars %>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:ordo_id) %></th>
       <th><%= model_class.human_attribute_name(:date) %></th>
       <th><%= model_class.human_attribute_name(:rank_id) %></th>
@@ -14,35 +14,39 @@
       <th><%= model_class.human_attribute_name(:wk_in_seas) %></th>
       <th><%= model_class.human_attribute_name(:day_of_wk) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
+      <% if user_signed_in? %><% if current_user.has_role? :editor %>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <% end %><% end %>
     </tr>
   </thead>
   <tbody>
     <% @calendars.each do |calendar| %>
       <tr>
-        <td><%= link_to calendar.id, calendar_path(calendar) %></td>
-        <td><%= calendar.ordo %></td>
-        <td><%= calendar.data.strftime("%b %d %Y") %></td>
+	    <td><%= calendar.ordo.code %></td>
+	    <td><%= link_to calendar.data.strftime("%b %d %Y"), calendar_path(calendar) %></td>
         <td><%= calendar.rank %></td>
-        <td><%= calendar.season %></td>
+        <td><%= calendar.season.code %></td>
         <td><%= calendar.color %></td>
         <td><%= calendar.week_in_season %></td>
-        <td><%= ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"][calendar.day_of_week] %></td>
+        <td><%= calendar.day_of_week %></td>
         <td><%= calendar.title %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_calendar_path(calendar), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      calendar_path(calendar),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
+        <% if user_signed_in? %><% if current_user.has_role? :editor %>
+	        <td>
+	          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+	                      edit_calendar_path(calendar), :class => 'btn btn-mini' %>
+
+	          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+	                      calendar_path(calendar),
+	                      :method => :delete,
+	                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+	                      :class => 'btn btn-mini btn-danger' %>
+	        </td>
+        <% end %><% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
-
+<%= will_paginate @calendars %>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_calendar_path,
             :class => 'btn btn-primary' %>

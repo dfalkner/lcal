@@ -4,6 +4,8 @@ class Ordo < ActiveRecord::Base
   has_many :calendars
   validates :code, :title, :presence => true
   
+  resourcify
+  
   def to_s
     title
   end

@@ -1,4 +1,5 @@
 class RanksController < ApplicationController
+
   # GET /ranks
   # GET /ranks.json
   def index
@@ -24,6 +25,7 @@ class RanksController < ApplicationController
   # GET /ranks/new
   # GET /ranks/new.json
   def new
+    authorize! :index, @user, :message => 'Not authorized.'
     @rank = Rank.new
 
     respond_to do |format|
@@ -34,12 +36,14 @@ class RanksController < ApplicationController
 
   # GET /ranks/1/edit
   def edit
+    authorize! :index, @user, :message => 'Not authorized.'
     @rank = Rank.find(params[:id])
   end
 
   # POST /ranks
   # POST /ranks.json
   def create
+    authorize! :index, @user, :message => 'Not authorized.'
     @rank = Rank.new(params[:rank])
 
     respond_to do |format|
@@ -56,6 +60,7 @@ class RanksController < ApplicationController
   # PUT /ranks/1
   # PUT /ranks/1.json
   def update
+    authorize! :index, @user, :message => 'Not authorized.'
     @rank = Rank.find(params[:id])
 
     respond_to do |format|
@@ -72,6 +77,7 @@ class RanksController < ApplicationController
   # DELETE /ranks/1
   # DELETE /ranks/1.json
   def destroy
+    authorize! :index, @user, :message => 'Not authorized.'
     @rank = Rank.find(params[:id])
     @rank.destroy
 

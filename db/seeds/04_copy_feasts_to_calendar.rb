@@ -86,7 +86,7 @@ start_year.upto end_year do |y|
     end
     
   #  cal.week_in_season = Calendar.find_by_data(fday).week_in_season
-    cal.day_of_week = fday.wday
+    cal.day_of_week_id = fday.wday + 1
     cal.title = f.title
     
     if !cal.valid?

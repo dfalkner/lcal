@@ -6,6 +6,7 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
+
 Linguistics.use(:en)
 
 @years_into_future = 10 #number of years of data to create
@@ -33,8 +34,8 @@ user2.add_role :editor
   {code: 'fst', position: 2, title:  'Feast'},
   {code: 'mem', position: 3, title:  'Memorial'}, 
   {code: 'wd', position: 4, title:  'Weekday'},
-  {code: 'opt', position: 5, title:  'Optional Memorial'}, 
-  {code: 'com', position: 6, title:  'Commemoration'}, 
+  {code: 'opt', position: 5, title:  'Opt. Mem.'}, 
+  {code: 'com', position: 6, title:  'Commem.'}, 
   {code: 'na', position: 9, title:  'Not Applicable'}
 ].each {|i| Rank.find_or_create_by_code(i)}
 
@@ -72,6 +73,16 @@ user2.add_role :editor
   {code: 'any', title:  'Any Season'},
   {code: 'na', title:  'Not Applicable'}
 ].each {|i| Season.find_or_create_by_code(i)}
+
+[ {code: 'sun', title:  'Sunday'}, 
+  {code: 'mon', title:  'Monday'}, 
+  {code: 'tue', title:  'Tuesday'},
+  {code: 'wed', title:  'Wednesday'}, 
+  {code: 'thu', title:  'Thursday'}, 
+  {code: 'fri', title:  'Friday'}, 
+  {code: 'sat', title:  'Saturday'} 
+].each {|i| DayOfWeek.find_or_create_by_code(i)}
+
 
 [ {code: 'green', title:  'Green'}, 
   {code: 'violet', title:  'Violet'}, 
@@ -112,10 +123,11 @@ load("#{Rails.root}/db/seeds/02_initialize_calendars_ferial_and_principals.rb")
 load("#{Rails.root}/db/seeds/03_import_proper_of_saints_tsv.rb")
 
 load("#{Rails.root}/db/seeds/04_copy_feasts_to_calendar.rb")
-
+=begin
 load("#{Rails.root}/db/seeds/05_export_calendar_files.rb")
 
-
+load("#{Rails.root}/db/seeds/06_export_liturgical_calendar_for_website.rb")
+=end
 
 
 

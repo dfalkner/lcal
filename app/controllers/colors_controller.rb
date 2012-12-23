@@ -1,5 +1,5 @@
 class ColorsController < ApplicationController
-  
+  before_filter :authenticate_user!
   respond_to :html, :xml, :json
   
   def index
@@ -22,6 +22,7 @@ class ColorsController < ApplicationController
   # GET /colors/new
   # GET /colors/new.json
   def new
+    authorize! :index, @user, :message => 'Not authorized.'
     @color = Color.new
 
     respond_to do |format|
@@ -32,12 +33,14 @@ class ColorsController < ApplicationController
 
   # GET /colors/1/edit
   def edit
+    authorize! :index, @user, :message => 'Not authorized.'
     @color = Color.find(params[:id])
   end
 
   # POST /colors
   # POST /colors.json
   def create
+    authorize! :index, @user, :message => 'Not authorized.'
     @color = Color.new(params[:color])
 
     respond_to do |format|
@@ -54,6 +57,7 @@ class ColorsController < ApplicationController
   # PUT /colors/1
   # PUT /colors/1.json
   def update
+    authorize! :index, @user, :message => 'Not authorized.'
     @color = Color.find(params[:id])
 
     respond_to do |format|
@@ -70,6 +74,7 @@ class ColorsController < ApplicationController
   # DELETE /colors/1
   # DELETE /colors/1.json
   def destroy
+    authorize! :index, @user, :message => 'Not authorized.'
     @color = Color.find(params[:id])
     @color.destroy
 

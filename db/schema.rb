@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121210072244) do
+ActiveRecord::Schema.define(:version => 20121222031938) do
 
   create_table "calendars", :force => true do |t|
     t.integer  "ordo_id"
@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(:version => 20121210072244) do
     t.integer  "season_id"
     t.integer  "color_id"
     t.integer  "week_in_season"
-    t.integer  "day_of_week"
+    t.integer  "day_of_week_id"
     t.string   "title"
     t.datetime "created_at",     :null => false
     t.datetime "updated_at",     :null => false
@@ -51,6 +51,13 @@ ActiveRecord::Schema.define(:version => 20121210072244) do
 
   add_index "commons_feasts", ["common_id"], :name => "index_commons_feasts_on_common_id"
   add_index "commons_feasts", ["feast_id"], :name => "index_commons_feasts_on_feast_id"
+
+  create_table "day_of_weeks", :force => true do |t|
+    t.string   "code"
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "feasts", :force => true do |t|
     t.integer  "ordo_id"

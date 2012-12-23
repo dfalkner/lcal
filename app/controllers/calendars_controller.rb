@@ -1,8 +1,8 @@
 class CalendarsController < ApplicationController
-  # GET /calendars
-  # GET /calendars.json
+  respond_to :html, :xml, :json
+
   def index
-    @calendars = Calendar.all
+    @calendars = Calendar.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -10,10 +10,8 @@ class CalendarsController < ApplicationController
     end
   end
 
-  # GET /calendars/1
-  # GET /calendars/1.json
   def show
-    @calendar = Calendar.find(params[:id])
+   @calendar = Calendar.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -21,9 +19,8 @@ class CalendarsController < ApplicationController
     end
   end
 
-  # GET /calendars/new
-  # GET /calendars/new.json
   def new
+    authorize! :index, @user, :message => 'Not authorized.'
     @calendar = Calendar.new
 
     respond_to do |format|
@@ -34,12 +31,14 @@ class CalendarsController < ApplicationController
 
   # GET /calendars/1/edit
   def edit
+    authorize! :index, @user, :message => 'Not authorized.'
     @calendar = Calendar.find(params[:id])
   end
 
   # POST /calendars
   # POST /calendars.json
   def create
+    authorize! :index, @user, :message => 'Not authorized.'
     @calendar = Calendar.new(params[:calendar])
 
     respond_to do |format|
@@ -53,9 +52,9 @@ class CalendarsController < ApplicationController
     end
   end
 
-  # PUT /calendars/1
-  # PUT /calendars/1.json
+
   def update
+    authorize! :index, @user, :message => 'Not authorized.'
     @calendar = Calendar.find(params[:id])
 
     respond_to do |format|
@@ -69,9 +68,9 @@ class CalendarsController < ApplicationController
     end
   end
 
-  # DELETE /calendars/1
-  # DELETE /calendars/1.json
+
   def destroy
+    authorize! :index, @user, :message => 'Not authorized.'
     @calendar = Calendar.find(params[:id])
     @calendar.destroy
 
