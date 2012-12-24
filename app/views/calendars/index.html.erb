@@ -24,7 +24,7 @@
       <th><%= model_class.human_attribute_name(:wk_in_seas) %></th>
       <th><%= model_class.human_attribute_name(:day_of_wk) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
-      <% if user_signed_in? %><% if current_user.has_role? :editor %>
+      <% if user_signed_in? %><% if (current_user.has_role? :editor) or (current_user.has_role? :admin) %>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
       <% end %><% end %>
     </tr>

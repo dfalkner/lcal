@@ -10,7 +10,9 @@
       <th><%= model_class.human_attribute_name(:title) %></th>
       <th><%= model_class.human_attribute_name(:position) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <% if user_signed_in? %><% if (current_user.has_role? :editor) or (current_user.has_role? :admin) %>
+       <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <% end %><% end %>
     </tr>
   </thead>
   <tbody>
@@ -21,15 +23,17 @@
         <td><%= rank.title %></td>
         <td><%= rank.position %></td>
         <td><%= rank.created_at.strftime("%b %d %Y") %></td>
-        <td>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_rank_path(rank), :class => 'btn btn-mini' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-                      rank_path(rank),
-                      :method => :delete,
-                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-                      :class => 'btn btn-mini btn-danger' %>
-        </td>
+        <% if user_signed_in? %><% if (current_user.has_role? :editor) or (current_user.has_role? :admin) %>
+	        <td>
+	          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+	                      edit_rank_path(rank), :class => 'btn btn-mini' %>
+	          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+	                      rank_path(rank),
+	                      :method => :delete,
+	                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+	                      :class => 'btn btn-mini btn-danger' %>
+	        </td>
+        <% end %><% end %>
       </tr>
     <% end %>
   </tbody>

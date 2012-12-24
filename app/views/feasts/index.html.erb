@@ -11,7 +11,7 @@
       <th><%= model_class.human_attribute_name(:rank_id) %></th>
       <th><%= model_class.human_attribute_name(:color_id) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
-      <% if user_signed_in? %><% if current_user.has_role? :editor %>
+      <% if user_signed_in? %><% if (current_user.has_role? :editor) or (current_user.has_role? :admin) %>
         <th><%=t '.actions', :default => t("helpers.actions") %></th>
       <% end %><% end %>
     </tr>
@@ -26,7 +26,7 @@
         <td><%= f.rank %></td>
         <td><%= f.color %></td>
         <td><%= f.title %></td>
-        <% if user_signed_in? %><% if current_user.has_role? :editor %>
+        <% if user_signed_in? %><% if (current_user.has_role? :editor) or (current_user.has_role? :admin) %>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_feast_path(f), :class => 'btn btn-mini' %>

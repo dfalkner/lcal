@@ -8,7 +8,7 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:code) %></th>
       <th><%= model_class.human_attribute_name(:title) %></th>
-      <% if user_signed_in? %><% if current_user.has_role? :editor %>
+      <% if user_signed_in? %><% if (current_user.has_role? :editor) or (current_user.has_role? :admin) %>
         <th><%=t '.actions', :default => t("helpers.actions") %></th>
       <% end %><% end %>
     </tr>
@@ -19,7 +19,7 @@
         <td><%= link_to ordo.id, ordo_path(ordo) %></td>
         <td><%= ordo.code %></td>
         <td><%= ordo.title %></td>
-        <% if user_signed_in? %><% if current_user.has_role? :editor %>
+        <% if user_signed_in? %><% if (current_user.has_role? :editor) or (current_user.has_role? :admin) %>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_ordo_path(ordo), :class => 'btn btn-mini' %>
