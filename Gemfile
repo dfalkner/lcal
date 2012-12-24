@@ -23,6 +23,7 @@ gem 'linguistics', '1.0.9'
 gem 'icalendar'
 gem 'libv8'
 gem 'figaro', "~> 0.5.0"
+gem 'ransack'
 
 
 

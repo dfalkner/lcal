@@ -2,7 +2,8 @@ class CalendarsController < ApplicationController
   respond_to :html, :xml, :json
 
   def index
-    @calendars = Calendar.paginate(:page => params[:page])
+    @q = Calendar.search(params[:q])
+    @calendars = @q.result.paginate(:page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb

@@ -2,6 +2,16 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
 </div>
+
+<%= search_form_for @q do |f| %>
+<div  class="form-inline">
+	<%= f.label :data_gteq, "Date from"  %>
+	<%= f.text_field :data_gteq %>
+	<%= f.submit "Show" %>
+   </div>
+
+<% end %>
+
 <%= will_paginate @calendars %>
 <table class="table table-striped">
   <thead>

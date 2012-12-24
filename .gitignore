@@ -5,14 +5,28 @@
 #   git config --global core.excludesfile ~/.gitignore_global
 
 # Ignore bundler config
+.bundle
 /.bundle
 
-# Ignore the default SQLite database.
-/db/*.sqlite3
+# ignore the default SQLite db
+db/*.sqlite3*
 
-# Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
+# Ignore all logfiles and tempfiles
+log/*.log
+*.log
+tmp/**/*
+tmp/*
+
+# Ignore other unneeded files
+doc/api
+doc/app
+doc/
+*.swp
+*~
+.project
+*.swp
+.DS_Store
+bundler_stubs/
 
 # Ignore application configuration
 /config/application.yml
