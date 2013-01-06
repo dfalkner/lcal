@@ -1,4 +1,8 @@
-puts "\n\n04_copy_feasts_to_calendar"
+puts "\n\n\n\n\n\n-------------------------------"
+puts "04_copy_feasts_to_calendar"
+puts "-------------------------------\n\n"
+
+@debug = 0
 
 weekday_rank = Rank.find_by_code('wd')
 sunday_rank = Rank.find_by_code('sun')
@@ -6,8 +10,7 @@ solemnity_rank = Rank.find_by_code('sol')
 feast_rank = Rank.find_by_code('fst')
 memorial_rank = Rank.find_by_code('mem')
 optional_rank = Rank.find_by_code('opt')
-
-
+obligatory_rank = Rank.find_by_code('obl')
 
 general_ordo = Ordo.find_by_code('gen')
 usa_ordo = Ordo.find_by_code('usa')
@@ -20,6 +23,7 @@ feasts = Feast.all
 
 start_year.upto end_year do |y|
   
+  #add the principal celebrations to the calendar
   epiphany = Principal.find_by_year(y).epiphany
   baptism_of_the_lord = Principal.find_by_year(y).baptism_of_the_lord
   ash_wednesday = Principal.find_by_year(y).ash_wednesday
@@ -33,22 +37,28 @@ start_year.upto end_year do |y|
   first_sunday_of_advent = Principal.find_by_year(y).first_sunday_of_advent
   christmas = Date.new(y,12,25)
   
-  
+  #add feast days to calendar
   feasts.each do |f|
     fday=Date.new(y, f.month, f.day)
+    p fday if @debug == 1 
+    puts "Checking to see if sol, sunday, or feast exists on #{fday}" if @debug == 1
+    puts "f.ordo_id #{f.ordo_id}. general_ordo #{general_ordo}" if @debug == 1
     cal = Calendar.where(data:fday, ordo_id:[f.ordo_id, general_ordo], rank_id:[solemnity_rank,sunday_rank,feast_rank]).first
+    puts "Found: #{cal}" if !cal.nil? && @debug == 1
     if !cal.nil?
-        puts "Skipping existing #{fday} which has higher rank titled: #{cal.title}" if @debug >=1 
+        puts "Not adding special days because existing #{fday} has higher rank titled: #{cal.title}" if @debug >=1 
         next 
     end
+
+=begin    
     cal = Calendar.where(data:fday, ordo_id:[f.ordo_id, general_ordo], rank_id:weekday_rank).first
     if cal.nil?
       puts "#{fday} with ordo_id:[f.ordo_id, general_ordo] and rank:weekday_rank) doesn't exist so creating" if @debug >=1 
       cal = Calendar.new()
     end
+=end
+    cal = Calendar.new()
 
-    p fday if @debug >=1 
-    
     case fday
     when Date.new(y,1,2)..baptism_of_the_lord
       cal.season_id = Season.find_by_code('xmas').id
@@ -85,12 +95,14 @@ start_year.upto end_year do |y|
       cal.color_id = f.color_id
     end
     
-  #  cal.week_in_season = Calendar.find_by_data(fday).week_in_season
+    cal.week_in_season = Calendar.find_by_data(fday).week_in_season
+
     cal.day_of_week_id = fday.wday + 1
     cal.title = f.title
     
+    puts "cal.valid? #{cal.valid?}" if @debug == 1
     if !cal.valid?
-      puts "cal.valid?#{cal.valid?}" 
+      puts "cal.valid? #{cal.valid?}" 
       p cal
     end
     cal.save

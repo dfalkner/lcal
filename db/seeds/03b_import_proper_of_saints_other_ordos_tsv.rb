@@ -1,10 +1,12 @@
-puts "\n\n03_import_proper_of_saints_tsv"
+puts "\n\n\n\n\n\n-------------------------------"
+puts "03b_proper_of_saints_other_ordos.tsv"
+puts "-------------------------------\n\n"
 
 commons = Common.all
 feast_count = 0
 feast_updates = 0
 
-import_filename = "#{Rails.root}/db/seeds/03_proper-of-saints.tsv"
+import_filename = "#{Rails.root}/db/seeds/03b_proper_of_saints_other_ordos.tsv"
 puts "Importing file #{import_filename}"
 f = File.open(import_filename) 
 
@@ -14,29 +16,31 @@ f.each do |line|
   
   next if line_part[0]=='Ordo' # discard first line
   puts "importing #{line_part}"
-  feast = Feast.find_or_create_by_title(line_part[4])
-  puts "line_part[] #{line_part[0]} / #{line_part[1]} / #{line_part[2]} / #{line_part[4]}" if @debug >= 1
+  feast = Feast.new()
+  feast.title = line_part[4]
 
   ordo = Ordo.find_by_code(line_part[0])
-  puts "#{ordo} = Ordo.find_by_code(#{line_part[0]})" if @debug >= 1
-
+  puts "#{ordo} = Ordo.find_by_code(#{line_part[0]})" if @debug == 1
   feast.ordo = ordo
 
   feast.month = line_part[1][0..1].to_i
-  puts "month:#{feast.month} = #{line_part[1][0..1]}.to_i" if @debug >= 1
+  puts "month:#{feast.month} = #{line_part[1][0..1]}.to_i" if @debug == 1
+  next if feast.month == 0 #invalid date
 
   feast.day = line_part[1][2..3].to_i
-  puts "day:#{feast.day} = #{line_part[1][2..3]}.to_i" if @debug >= 1
+  puts "day:#{feast.day} = #{line_part[1][2..3]}.to_i" if @debug == 1
+  next if feast.day == 0 #invalid date
+  
 
   rank = Rank.find_by_code(line_part[2])
-  puts "rank:#{rank} = Rank.find_by_code(#{line_part[2]})" if @debug >= 1
+  puts "rank:#{rank} = Rank.find_by_code(#{line_part[2]})" if @debug == 1
   feast.rank=rank
 
   color = Color.find_by_title(line_part[3])
-  puts "color:#{color} = Color.find_by_title(#{line_part[3]})" if @debug >= 1
+  puts "color:#{color} = Color.find_by_title(#{line_part[3]})" if @debug == 1
   feast.color=color
 
-  puts "title:#{line_part[4]}" if @debug >= 1
+  puts "title:#{line_part[4]}" if @debug == 1
   feast.title=line_part[4]
 
   if feast.new_record?
@@ -53,7 +57,7 @@ f.each do |line|
   # add association with commons
   commons.each do |j|
   if feast.title =~ /.*\b#{j.code}\b.*/ 
-    puts "#{feast.title} includes #{j.code}"  if @debug >= 1
+    puts "#{feast.title} includes #{j.code}"  if @debug == 1
     feast.commons << j
     feast.save
   end

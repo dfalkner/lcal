@@ -1,13 +1,16 @@
-puts "\n\n02_initialize_calendars_ferial_and_principals"
+
+puts "\n\n\n\n\n\n-------------------------------"
+puts "02_initialize_calendars_ferial_and_principals"
+puts "-------------------------------\n\n"
 
 DAYNAMES = %w(Sunday Monday Tuesday Wednesday Thursday Friday Saturday)
 
 this_year = Date.today.year
 start_date = Date.new(this_year - @years_into_past)
-end_date = Date.new(this_year + @years_into_future)
+end_date = Date.new((this_year + @years_into_future), 12, 31 )
 
 ordo = Ordo.find_by_code('gen')
-puts "#{ordo} = Ordo.find_by_code(gen)" if @debug == 0
+puts "#{ordo} = Ordo.find_by_code(gen)" if @debug == 1
 
 weekday_rank = Rank.find_by_code('wd')
 sunday_rank = Rank.find_by_code('sun')
@@ -219,7 +222,7 @@ start_date.upto end_date do |d|
    cal.rank_id = feast_rank.id 
    cal.season_id = Season.find_by_code('xmas').id
    cal.color_id = Color.find_by_code('white').id
-   cal.week_in_season = 0
+   cal.week_in_season = 1
    title = "HOLY FAMILY"
   when (christmas + 1)..Date.new(d.year, 12, 31)
    cal.season_id = Season.find_by_code('xmas').id

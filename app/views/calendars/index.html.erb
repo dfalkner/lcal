@@ -60,9 +60,9 @@
 
   </tbody>
 </table>
-<%= user_signed_in?  %>
-<%= current_user.has_role? :editor  %>
 <%= will_paginate @calendars %>
+<% if user_signed_in? %><% if (current_user.has_role? :editor) or (current_user.has_role? :admin) %>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_calendar_path,
             :class => 'btn btn-primary' %>
+<% end %><% end %>

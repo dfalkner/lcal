@@ -14,6 +14,7 @@ Linguistics.use(:en)
 
 @debug = 0
 
+
 puts 'CREATING ROLES'
 Role.create([
   { :name => 'admin' }, 
@@ -32,12 +33,13 @@ user2.add_role :editor
 [ {code: 'sol', position: 0, title:  'Solemnity'}, 
   {code: 'sun', position: 1, title:  'Sunday'}, 
   {code: 'fst', position: 2, title:  'Feast'},
-  {code: 'mem', position: 3, title:  'Memorial'}, 
-  {code: 'wd', position: 4, title:  'Weekday'},
-  {code: 'opt', position: 5, title:  'Opt. Mem.'}, 
-  {code: 'com', position: 6, title:  'Commem.'}, 
+  {code: 'obl', position: 3, title:  'Obligatory Mem.'},
+  {code: 'mem', position: 4, title:  'Memorial'}, 
+  {code: 'wd', position: 5, title:  'Weekday'},
+  {code: 'opt', position: 6, title:  'Opt. Mem.'}, 
+  {code: 'com', position: 7, title:  'Commem.'}, 
   {code: 'na', position: 9, title:  'Not Applicable'}
-].each {|i| Rank.find_or_create_by_code(i)}
+].each {|i| Rank.find_or_create_by_code(i, :without_protection => true)}
 
 [ {code: 'gen', title:  'General Calendar'}, 
   {code: 'usa', title:  'United States of America'},
@@ -55,6 +57,7 @@ user2.add_role :editor
   {code: 'mt', title:  'Malta'},
   {code: 'nz', title:  'New Zealand'},
   {code: 'ph', title:  'Philippines'}, 
+  {code: 'pr', title:  'Puerto Rico'}, 
   {code: 'pt', title:  'Portugal'}, 
   {code: 'scot', title:  'Scotland'},
   {code: 'sk', title:  'Slovakia'},
@@ -62,7 +65,7 @@ user2.add_role :editor
   {code: 'lk', title:  'Sri Lanka'}, 
   {code: 'vn', title:  'Vietnam'},
   {code: 'wal', title:  'Wales'}
-].each {|i| Ordo.find_or_create_by_code(i)}
+].each {|i| Ordo.find_or_create_by_code(i, :without_protection => true)}
 
 [ {code: 'ord', title:  'Ordinary Time'}, 
   {code: 'adv', title:  'Advent'}, 
@@ -72,7 +75,7 @@ user2.add_role :editor
   {code: 'east', title:  'Easter'}, 
   {code: 'any', title:  'Any Season'},
   {code: 'na', title:  'Not Applicable'}
-].each {|i| Season.find_or_create_by_code(i)}
+].each {|i| Season.find_or_create_by_code(i, :without_protection => true)}
 
 [ {code: 'sun', title:  'Sunday'}, 
   {code: 'mon', title:  'Monday'}, 
@@ -81,7 +84,7 @@ user2.add_role :editor
   {code: 'thu', title:  'Thursday'}, 
   {code: 'fri', title:  'Friday'}, 
   {code: 'sat', title:  'Saturday'} 
-].each {|i| DayOfWeek.find_or_create_by_code(i)}
+].each {|i| DayOfWeek.find_or_create_by_code(i, :without_protection => true)}
 
 
 [ {code: 'green', title:  'Green'}, 
@@ -89,7 +92,7 @@ user2.add_role :editor
   {code: 'white', title:  'White'},
   {code: 'red', title:  'Red'}, 
   {code: 'black', title:  'Black'}
-].each {|i| Color.find_or_create_by_code(i)}
+].each {|i| Color.find_or_create_by_code(i, :without_protection => true)}
 
 [ {code: 'none', title:  ' '}, 
   {code: 'Ab', title:  'Abbot'}, 
@@ -113,16 +116,19 @@ user2.add_role :editor
   {code: 'Underpriv', title:  'Those who work for underpivileged'},
   {code: 'V', title:  'Virgin'},
   {code: 'Vv', title:  'Virgins'}
-].each {|i| Common.find_or_create_by_code(i)}
+].each {|i| Common.find_or_create_by_code(i, :without_protection => true)}
 
 load("#{Rails.root}/db/seeds/01_import_principal_celebrations.rb")
 
 load("#{Rails.root}/db/seeds/02_initialize_calendars_ferial_and_principals.rb")
 
 
-load("#{Rails.root}/db/seeds/03_import_proper_of_saints_tsv.rb")
+load("#{Rails.root}/db/seeds/03a_import_proper_of_saints_tsv.rb")
+
+load("#{Rails.root}/db/seeds/03b_import_proper_of_saints_other_ordos_tsv.rb")
 
 load("#{Rails.root}/db/seeds/04_copy_feasts_to_calendar.rb")
+
 =begin
 load("#{Rails.root}/db/seeds/05_export_calendar_files.rb")
 
