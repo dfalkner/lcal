@@ -1,23 +1,14 @@
 class CalendarsController < ApplicationController
-  respond_to :html, :xml, :json
+#  respond_to :html, :xml, :json
 
   def index
     @q = Calendar.search(params[:q])
     @calendars = @q.result.paginate(:page => params[:page])
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @calendars }
-    end
+    @cals ||= Calendar.where("data >= ? and data <= ?", (Date.today - 30), (Date.today.end_of_year + (3 * 365)))
   end
 
   def show
    @calendar = Calendar.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @calendar }
-    end
   end
 
   def new
@@ -80,4 +71,6 @@ class CalendarsController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+
 end

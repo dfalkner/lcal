@@ -1,0 +1,10 @@
+json.id @calendar.id
+json.date @calendar.data
+json.ordo @calendar.ordo.title
+json.rank @calendar.rank.title
+json.position @calendar.rank.position
+json.season @calendar.season.title
+json.week_in_season @calendar.week_in_season
+json.title @calendar.title
+json.color @calendar.color.title
+json.day_of_week @calendar.day_of_week.title
