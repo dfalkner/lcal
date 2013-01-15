@@ -14,7 +14,7 @@ Linguistics.use(:en)
 
 @debug = 0
 
-if !Role.find_by_name('admin').nil?
+if Role.find_by_name('admin').nil?
   puts 'CREATING ROLES'
   Role.create([
     { :name => 'admin' }, 
