@@ -26,6 +26,7 @@ gem 'figaro', "~> 0.5.0"
 gem 'ransack'
 gem 'oj'
 gem 'jbuilder'
+gem 'newrelic_rpm'
 
 group :development do
   gem 'rspec', '2.11.0'
