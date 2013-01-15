@@ -1,7 +1,7 @@
 class RanksController < ApplicationController
 
-  # GET /ranks
-  # GET /ranks.json
+  caches_page :index
+
   def index
     @ranks = Rank.all
 

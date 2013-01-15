@@ -1,11 +1,28 @@
 class CalendarsController < ApplicationController
 #  respond_to :html, :xml, :json
 
+  caches_page :index
+
   def index
-    @q = Calendar.search(params[:q])
-    @calendars = @q.result.paginate(:page => params[:page])
-    @cals ||= Calendar.where("data >= ? and data <= ?", (Date.today - 30), (Date.today.end_of_year + (3 * 365)))
+    
+    respond_to do |format|
+      format.html do
+        @q = Calendar.includes(:rank, :color, :season, :ordo).search(params[:q])
+        @calendars = @q.result.paginate(:page => params[:page])
+      end
+      format.json do
+        
+ #       @calendars ||= Calendar.where("data >= ? and data <= ?", (Date.today - 30), (Date.today.end_of_year + (3 * 365)))
+         if params[:updated_since].nil?
+           @calendars ||= Calendar.includes(:rank, :color, :season, :ordo).where("data >= ? and data <= ? ", Date.today.beginning_of_year, Date.today.end_of_year + (3 * 365) )
+         else
+           updates_from = params[:updated_since].to_date.beginning_of_week
+           @calendars ||= Calendar.includes(:rank, :color, :season, :ordo).where("data >= ? and data <= ? and updated_at >= ?", Date.today.beginning_of_year, Date.today.end_of_year + (3 * 365), updates_from )
+         end
+      end
+    end
   end
+  
 
   def show
    @calendar = Calendar.find(params[:id])

@@ -1,6 +1,7 @@
 <%- model_class = Calendar -%>
 <div class="page-header">
-  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1>
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize %></h1> 
+
 </div>
 
 <%= search_form_for @q do |f| %>
@@ -32,7 +33,7 @@
   <tbody>
     <% @calendars.each do |calendar| %>
       <tr>
-	    <td><%= calendar.ordo.code %></td>
+	    <td><%= calendar.ordo.title %></td>
 	    <td><%= link_to calendar.data.strftime("%b %d %Y"), calendar_path(calendar) %></td>
         <td><%= calendar.rank %></td>
         <td><%= calendar.season.code %></td>

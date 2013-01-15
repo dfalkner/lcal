@@ -1,7 +1,7 @@
 class FeastsController < ApplicationController
  
-  # GET /feasts
-  # GET /feasts.json
+  caches_page :index
+
   def index
     @feasts = Feast.all
 

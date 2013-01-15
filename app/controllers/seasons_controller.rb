@@ -1,7 +1,7 @@
 class SeasonsController < ApplicationController
 
-  # GET /seasons
-  # GET /seasons.json
+  caches_page :index
+
   def index
     @seasons = Season.all
 

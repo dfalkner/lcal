@@ -1,6 +1,6 @@
 class PrincipalsController < ApplicationController
-  # GET /principals
-  # GET /principals.json
+  caches_page :index
+
   def index
     @principals = Principal.all
 

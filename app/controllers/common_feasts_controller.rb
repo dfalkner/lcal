@@ -1,5 +1,7 @@
 class CommonFeastsController < ApplicationController
- 
+
+  caches_page :index
+
   def index
     @common_feasts = CommonFeast.all
 

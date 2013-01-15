@@ -1,5 +1,5 @@
 class CreateCommonsFeastsJoinTable < ActiveRecord::Migration
-  def up
+  def change
       create_table :commons_feasts, :id => false do |t|
         t.integer :common_id, :null => false
         t.integer :feast_id, :null => false
@@ -8,7 +8,4 @@ class CreateCommonsFeastsJoinTable < ActiveRecord::Migration
       add_index :commons_feasts, :feast_id
     end
 
-  def down
-    drop_table :commons_feasts
-  end
 end

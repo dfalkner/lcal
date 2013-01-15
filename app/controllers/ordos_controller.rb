@@ -1,7 +1,7 @@
 class OrdosController < ApplicationController
 
-  # GET /ordos
-  # GET /ordos.json
+  caches_page :index
+
   def index
     @ordos = Ordo.all
 

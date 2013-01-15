@@ -5,15 +5,15 @@
 
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:ordo_id) %>:</strong></dt>
-  <dd><%= @feast.ordo_id %></dd>
+  <dd><%= @feast.ordo.title %></dd>
   <dt><strong><%= model_class.human_attribute_name(:month) %>:</strong></dt>
   <dd><%= @feast.month %></dd>
   <dt><strong><%= model_class.human_attribute_name(:day) %>:</strong></dt>
   <dd><%= @feast.day %></dd>
   <dt><strong><%= model_class.human_attribute_name(:rank_id) %>:</strong></dt>
-  <dd><%= @feast.rank_id %></dd>
+  <dd><%= @feast.rank.title %></dd>
   <dt><strong><%= model_class.human_attribute_name(:color_id) %>:</strong></dt>
-  <dd><%= @feast.color_id %></dd>
+  <dd><%= @feast.color.title%></dd>
   <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
   <dd><%= @feast.title %></dd>
 

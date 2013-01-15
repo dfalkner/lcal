@@ -1,4 +1,4 @@
-json.array!(@cals) do |cal|
+json.array!(@calendars) do |cal|
 	json.id cal.id
 	json.date cal.data
 	json.ordo cal.ordo.title
@@ -8,4 +8,5 @@ json.array!(@cals) do |cal|
 	json.week_in_season cal.week_in_season
 	json.title cal.title
 	json.color cal.color.title
+	json.updated_at cal.updated_at
 end

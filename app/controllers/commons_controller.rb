@@ -2,6 +2,8 @@ class CommonsController < ApplicationController
 
   # GET /commons
   # GET /commons.json
+  caches_page :index
+
   def index
     @commons = Common.all
 

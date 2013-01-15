@@ -9,13 +9,14 @@
     <li>
     <%= link_to('Saint Feast Days for all Ordos', feasts_path) %>
     </li>
-    <li>
-    <%= link_to('Ordos', ordos_path) %>
-    </li></ul>
+ </ul>
 <% if user_signed_in? %>
   <%  if current_user.has_role? :editor or current_user.has_role? :admin %>
-    <h3>Data Tables</h3>
+    <h3>Reference/Lookup Tables</h3>
 	<ul><li>
+    <%= link_to('Ordos', ordos_path) %>
+    </li>
+    <li>
 	<%= link_to('Commons', commons_path) %>
 	</li>
 	<li>
@@ -23,6 +24,9 @@
 	</li>
 	<li>
 	<%= link_to('Seasons', seasons_path) %>
+	</li>
+	<li>
+	<%= link_to('Colors', colors_path) %>
 	</li></ul>
  <% end %>
 

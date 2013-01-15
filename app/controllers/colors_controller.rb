@@ -2,6 +2,8 @@ class ColorsController < ApplicationController
   before_filter :authenticate_user!
   respond_to :html, :xml, :json
   
+  caches_page :index
+
   def index
     @colors = Color.all
 

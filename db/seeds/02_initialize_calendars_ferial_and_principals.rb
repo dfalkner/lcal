@@ -17,6 +17,7 @@ sunday_rank = Rank.find_by_code('sun')
 solemnity_rank = Rank.find_by_code('sol')
 feast_rank = Rank.find_by_code('fst')
 memorial_rank = Rank.find_by_code('mem')
+obligatory_rank = Rank.find_by_code('obl')
 optional_rank = Rank.find_by_code('opt')
 
 start_date.upto end_date do |d|
