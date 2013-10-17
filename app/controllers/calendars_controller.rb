@@ -14,10 +14,10 @@ class CalendarsController < ApplicationController
         
  #       @calendars ||= Calendar.where("data >= ? and data <= ?", (Date.today - 30), (Date.today.end_of_year + (3 * 365)))
          if params[:updated_since].nil?
-           @calendars ||= Calendar.includes(:rank, :color, :season, :ordo).where("data >= ? and data <= ? ", Date.today.beginning_of_year, Date.today.end_of_year + (3 * 365) )
+           @calendars ||= Calendar.includes(:rank, :color, :season, :ordo).where("data >= ? and data <= ? ", Date.today.beginning_of_year, Date.today.end_of_year + (1 * 365) )
          else
            updates_from = params[:updated_since].to_date.beginning_of_week
-           @calendars ||= Calendar.includes(:rank, :color, :season, :ordo).where("data >= ? and data <= ? and updated_at >= ?", Date.today.beginning_of_year, Date.today.end_of_year + (3 * 365), updates_from )
+           @calendars ||= Calendar.includes(:rank, :color, :season, :ordo).where("data >= ? and data <= ? and updated_at >= ?", Date.today.beginning_of_year, Date.today.end_of_year + (1 * 365), updates_from )
          end
       end
     end
