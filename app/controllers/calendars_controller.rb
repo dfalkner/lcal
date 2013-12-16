@@ -20,6 +20,7 @@ class CalendarsController < ApplicationController
            @calendars ||= Calendar.includes(:rank, :color, :season, :ordo).where("data >= ? and data <= ? and updated_at >= ?", Date.today.beginning_of_year, Date.today.end_of_year + (1 * 365), updates_from )
          end
       end
+      format.csv {@calendars ||= Calendar.where("data >= ? and data <= ? and (ordo_id = ? or ordo_id = ?) ", Date.today.beginning_of_year, Date.today.end_of_year + (1 * 365), Ordo.where("code = ?", "usa"), Ordo.where("code = ?", "gen") )}
     end
   end
   
