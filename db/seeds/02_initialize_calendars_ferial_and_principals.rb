@@ -212,7 +212,7 @@ start_date.upto end_date do |d|
     cal.season_id = Season.find_by_code('adv').id
     cal.color_id = Color.find_by_code('violet').id
     cal.week_in_season =  4
-    title = "Forth Sunday of Advent"
+    title = "Fourth Sunday of Advent"
   when christmas
    cal.rank_id = solemnity_rank.id 
    cal.season_id = Season.find_by_code('xmas').id
